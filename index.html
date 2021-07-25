@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        .header { grid-area: header; }
+        .menu { grid-area: menu; }
+        .main { grid-area: main; }
+        
+        .grid-container {
+          display: grid;
+          grid-template-areas:
+            'menu header header header header header'
+            'menu main main main main main'
+            'menu main main main main main';
+          grid-gap: 10px;
+          padding: 10px;
+        }
+        
+        .grid-container > div {
+          background-color: rgba(255, 255, 255, 0.8);
+          text-align: center;
+          padding: 20px 0;
+          font-size: 30px;
+        }
+        </style>
+    
+    <!-- Load d3.js -->
+    <script src="http://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+
+</head>
+
+<body>
+    <div class="grid-container">
+        <div class="header">
+            <h1>Gender Development Index</h1>
+            <h3>Year 2019</h3>
+        </div>
+        <div class="menu">
+            Menu
+            <ul style="list-style-type:none">
+                <li><button id="btn_gdi_value" class="button" onclick="clickGdiValue()">Gender Development Index</button></li>
+                <li><button id="btn_hdi_female" class="button" onclick="clickHdiFemale()">Human Development Index Female</button></li>
+                <li><button id="btn_hdi_male" class="button" onclick="clickHdiMale()">Human Development Index Male</button></li>
+
+                <li><button id="btn_sdg3_female" class="button" onclick="clickSdg3Female()">Life Expectancy at Birth Female</button></li>
+                <li><button id="btn_sdg3_male" class="button" onclick="clickSdg3Male()">Life Expectancy at Birth Male</button></li>
+
+                <li><button id="btn_sdg43_female" class="button" onclick="clickSdg43Female()">Expected Years of Schooling Female</button></li>
+                <li><button id="btn_sdg43_male" class="button" onclick="clickSdg43Male()">Expected Years of Schooling Male</button></li>
+
+                <li><button id="btn_sdg44_female" class="button" onclick="clickSdg44Female()">Mean Years of Schooling Female</button></li>
+                <li><button id="btn_sdg44_male" class="button" onclick="clickSdg44Male()">Mean Years of Schooling Male</button></li>
+
+                <li><button id="btn_sdg85_female" class="button" onclick="clickSdg85Female()">Estimated Gross National Income per Capita Female</button></li>
+                <li><button id="btn_sdg85_male" class="button" onclick="clickSdg85Male()">Estimated Gross National Income per Capita Male</button></li>
+            </ul>
+        </div>
+        <div class="main">
+            <svg id="gdi" width="1200" height="600"></svg>
+        </div>
+    </div>
+
+    <script>
+
+        var dataSource = d3.map();
+        var topology = null
+
+        // Load external data and boot
+        d3.queue()
+            .defer(d3.json, "https://raw.githubusercontent.com/adyanf/gdi_data_visualization/master/world.geojson")
+            .defer(d3.csv, "https://raw.githubusercontent.com/adyanf/gdi_data_visualization/master/gdi_index.csv", function(d) { 
+                dataSource.set(d.countryid, {
+                    "gdivalue": d.gdivalue,
+                    "hdifemale": d.hdifemale,
+                    "hdimale": d.hdimale,
+                    "hdirank": d.hdirank,
+                    "country": d.country,
+                    "countryid": d.countryid,
+                    "region": d.region,
+                    "humandevelopmentdegree": d.humandevelopmentdegree,
+                    "gdivalue": d.gdivalue,
+                    "gdigroup": d.gdigroup,
+                    "hdifemale": d.hdifemale,
+                    "hdimale": d.hdimale,
+                    "sdg3female": d.sdg3female,
+                    "sdg3male": d.sdg3male,
+                    "sdg43female": d.sdg43female,
+                    "sdg43male": d.sdg43male,
+                    "sdg44female": d.sdg44female,
+                    "sdg44male": d.sdg44male,
+                    "sdg85female": d.sdg85female,
+                    "sdg85male": d.sdg85male
+                });
+            })
+            .await(ready);
+
+        function ready(error, topo) {
+            topology = topo
+            clickGdiValue()
+        }
+
+        function renderMap(type) {
+            // hover function
+            let mouseOver = function(d) {
+                if (d.total != 0) {
+                    d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 1)
+                    .style("stroke", "black")
+                }
+            }
+
+            let mouseLeave = function(d) {
+                if (d.total != 0) {
+                    d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .style("stroke", "transparent")
+                }
+            }
+
+            // The map path
+            var path = d3.geoPath();
+            
+            // The gender development index
+            var svgGdi = d3.select("#gdi"),
+            widthGdi = +svgGdi.attr("width"),
+            heightGdi = +svgGdi.attr("height");
+
+            var projectionGdi = d3.geoMercator()
+            .scale(100)
+            .center([0,20])
+            .translate([widthGdi / 2, heightGdi / 2]);
+
+            var colorScaleGdi = null
+             if (type == "gdivalue") {
+                colorScaleGdi = d3.scaleThreshold()
+                .domain([0.899, 0.925, 0.95, 0.975, 1, 1.025])
+                .range(d3.schemeBlues[7]);
+             } else if (type == "hdifemale" || type == "hdimale") {
+                colorScaleGdi = d3.scaleThreshold()
+                .domain([0.2, 0.36, 0.52, 0.68, 0.84, 1])
+                .range(d3.schemeBuPu[7]);
+             } else if (type == "sdg3female" || type == "sdg3male") {
+                colorScaleGdi = d3.scaleThreshold()
+                .domain([50, 58, 66, 74, 82, 90])
+                .range(d3.schemeYlGnBu[7]);
+             } else if (type == "sdg43female" || type == "sdg43male") {
+                colorScaleGdi = d3.scaleThreshold()
+                .domain([0, 5, 10, 15, 20, 25])
+                .range(d3.schemeOranges[7]);
+             } else if (type == "sdg44female" || type == "sdg44male") {
+                colorScaleGdi = d3.scaleThreshold()
+                .domain([0, 5, 10, 15, 20, 25])
+                .range(d3.schemeOranges[7]);
+             } else if (type == "sdg85female" || type == "sdg85male") {
+                colorScaleGdi = d3.scaleThreshold()
+                .domain([0, 5000, 10000, 20000, 40000, 80000])
+                .range(d3.schemeGreens[7]);
+             }
+            
+            svgGdi.selectAll("*").remove();
+            svgGdi
+                .append("g")
+                .selectAll("path")
+                .data(topology.features)
+                .enter()
+                .append("path")
+                // draw each country
+                .attr("d", d3.geoPath()
+                    .projection(projectionGdi)
+                )
+                // set the color of each country
+                .attr("fill", function (d) {
+                    if (dataSource.get(d.id) != null) {
+                        if (type == "gdivalue") {
+                            d.total = dataSource.get(d.id).gdivalue || 0;
+                        } else if (type == "hdifemale") {
+                            d.total = dataSource.get(d.id).hdifemale || 0;
+                        } else if (type == "hdimale") {
+                            d.total = dataSource.get(d.id).hdimale || 0;
+                        } else if (type == "sdg3female") {
+                            d.total = dataSource.get(d.id).sdg3female || 0;
+                        } else if (type == "sdg3male") {
+                            d.total = dataSource.get(d.id).sdg3male || 0;
+                        } else if (type == "sdg43female") {
+                            d.total = dataSource.get(d.id).sdg43female || 0;
+                        } else if (type == "sdg43male") {
+                            d.total = dataSource.get(d.id).sdg43male || 0;
+                        } else if (type == "sdg44female") {
+                            d.total = dataSource.get(d.id).sdg44female || 0;
+                        } else if (type == "sdg44male") {
+                            d.total = dataSource.get(d.id).sdg44male || 0;
+                        } else if (type == "sdg85female") {
+                            d.total = dataSource.get(d.id).sdg85female || 0;
+                        } else if (type == "sdg85male") {
+                            d.total = dataSource.get(d.id).sdg85male || 0;
+                        }
+                    } else d.total = 0;
+                    if (d.total == 0) return "white";
+                    return colorScaleGdi(d.total);
+                })
+                .style("stroke", "transparent")
+                .attr("class", function(d){ return "Country" } )
+                .style("opacity", .8)
+                .on("mouseover", mouseOver)
+                .on("mouseleave", mouseLeave)
+        }
+
+        function clickGdiValue() {
+            console.log("clickGdiValue")
+            renderMap("gdivalue")
+            let allButton = document.querySelectorAll(".button")
+            allButton.forEach(enableButton)
+            let btnGdiValue = document.querySelector("#btn_gdi_value")
+            btnGdiValue.disabled = true
+        }
+
+        function clickHdiFemale() {
+            console.log("clickHdiFemale")
+            renderMap("hdifemale")
+            let allButton = document.querySelectorAll(".button")
+            allButton.forEach(enableButton)
+            let btnHdiFemale = document.querySelector("#btn_hdi_female")
+            btnHdiFemale.disabled = true
+        }
+
+        function clickHdiMale() {
+            console.log("clickHdiMale")
+            renderMap("hdimale")
+            let allButton = document.querySelectorAll(".button")
+            allButton.forEach(enableButton)
+            let btnHdiMale = document.querySelector("#btn_hdi_male")
+            btnHdiMale.disabled = true
+        }
+
+        function clickSdg3Female() {
+            console.log("clickSdg3Female")
+            renderMap("sdg3female")
+            let allButton = document.querySelectorAll(".button")
+            allButton.forEach(enableButton)
+            let btnSdg3Female = document.querySelector("#btn_sdg3_female")
+            btnSdg3Female.disabled = true
+        }
+
+        function clickSdg3Male() {
+            console.log("clickSdg3Male")
+            renderMap("sdg3male")
+            let allButton = document.querySelectorAll(".button")
+            allButton.forEach(enableButton)
+            let btnSdg3Male = document.querySelector("#btn_sdg3_male")
+            btnSdg3Male.disabled = true
+        }
+
+        function clickSdg43Female() {
+            console.log("clickSdg43Female")
+            renderMap("sdg43female")
+            let allButton = document.querySelectorAll(".button")
+            allButton.forEach(enableButton)
+            let btnSdg43Female = document.querySelector("#btn_sdg43_female")
+            btnSdg43Female.disabled = true
+        }
+
+        function clickSdg43Male() {
+            console.log("clickSdg43Male")
+            renderMap("sdg43male")
+            let allButton = document.querySelectorAll(".button")
+            allButton.forEach(enableButton)
+            let btnSdg43Male = document.querySelector("#btn_sdg43_male")
+            btnSdg43Male.disabled = true
+        }
+
+        function clickSdg44Female() {
+            console.log("clickSdg44Female")
+            renderMap("sdg44female")
+            let allButton = document.querySelectorAll(".button")
+            allButton.forEach(enableButton)
+            let btnSdg44Female = document.querySelector("#btn_sdg44_female")
+            btnSdg44Female.disabled = true
+        }
+
+        function clickSdg44Male() {
+            console.log("clickSdg44Male")
+            renderMap("sdg44male")
+            let allButton = document.querySelectorAll(".button")
+            allButton.forEach(enableButton)
+            let btnSdg44Male = document.querySelector("#btn_sdg44_male")
+            btnSdg44Male.disabled = true
+        }
+
+        function clickSdg85Female() {
+            console.log("clickSdg85Female")
+            renderMap("sdg85female")
+            let allButton = document.querySelectorAll(".button")
+            allButton.forEach(enableButton)
+            let btnSdg85Female = document.querySelector("#btn_sdg85_female")
+            btnSdg85Female.disabled = true
+        }
+
+        function clickSdg85Male() {
+            console.log("clickSdg85Male")
+            renderMap("sdg85male")
+            let allButton = document.querySelectorAll(".button")
+            allButton.forEach(enableButton)
+            let btnSdg85Male = document.querySelector("#btn_sdg85_male")
+            btnSdg85Male.disabled = true
+        }
+
+        function enableButton(button) {
+            button.disabled = false
+        }
+
+        </script>
+    </body>
+</html>
