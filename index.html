@@ -207,6 +207,7 @@
                         }
                     } else d.total = 0;
                     if (d.total == 0) return "white";
+                    if (type == "gdivalue" && d.total > 1) return "pink";
                     return colorScaleGdi(d.total);
                 })
                 .style("stroke", "transparent")
