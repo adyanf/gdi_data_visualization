@@ -137,6 +137,10 @@
             .center([0,20])
             .translate([widthGdi / 2, heightGdi / 2]);
 
+            let zoom = d3.zoom()
+            .scaleExtent([1, 8])
+            .on('zoom', zoomed);
+
             var colorScaleGdi = null
              if (type == "gdivalue") {
                 colorScaleGdi = d3.scaleThreshold()
@@ -210,6 +214,8 @@
                 .style("opacity", .8)
                 .on("mouseover", mouseOver)
                 .on("mouseleave", mouseLeave)
+                
+            svgGdi.call(zoom);
         }
 
         function clickGdiValue() {
@@ -313,6 +319,12 @@
 
         function enableButton(button) {
             button.disabled = false
+        }
+
+        function zoomed() {
+            d3.select("g")
+                .selectAll('path') // To prevent stroke width from scaling
+                .attr('transform', d3.event.transform);
         }
 
         </script>
