@@ -3,7 +3,19 @@
 
 <head>
     <meta charset="utf-8">
-    <style>        
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .menu { grid-area: menu; }
+        .main { grid-area: main; }
+        .description-container { grid-area: description-container; }
+
         .container {
           background-color: rgba(255, 255, 255, 0.8);
           text-align: center;
@@ -12,9 +24,18 @@
         }
 
         .grid-container {
-            display: inline-grid;
-            grid-template-columns: auto auto auto;
-            padding: 10px;
+          display: grid;
+          grid-template-areas:
+            'menu main main main main description-container';
+          grid-gap: 10px;
+          padding: 10px;
+        }
+
+        .grid-container > div {
+          background-color: rgba(255, 255, 255, 0.8);
+          text-align: center;
+          padding: 20px 0;
+          font-size: 30px;
         }
 
         .button {
@@ -35,28 +56,66 @@
 <body>
     <div class="container">
         <div>
-            <h1>Gender Development Index</h1>
-            <h3>Year 2019</h3>
+            <h1>Gender Development Index Year 2019</h1>
         </div>
-        <div class="grid-container" style="list-style-type:none">
-            <button id="btn_gdi_value" class="button" onclick="clickGdiValue()">Gender Development Index</button>
-            <button id="btn_hdi_female" class="button" onclick="clickHdiFemale()">Human Development Index Female</button>
-            <button id="btn_hdi_male" class="button" onclick="clickHdiMale()">Human Development Index Male</button>
+        <div class="grid-container">
 
-            <button id="btn_sdg3_female" class="button" onclick="clickSdg3Female()">Life Expectancy at Birth Female</button>
-            <button id="btn_sdg3_male" class="button" onclick="clickSdg3Male()">Life Expectancy at Birth Male</button>
+            <div class="menu">
+                <button id="btn_gdi_value" class="button" onclick="clickGdiValue()">Gender Development Index</button><br/>
+                <button id="btn_hdi_female" class="button" onclick="clickHdiFemale()">Human Development Index Female</button><br/>
+                <button id="btn_hdi_male" class="button" onclick="clickHdiMale()">Human Development Index Male</button><br/>
+    
+                <button id="btn_sdg3_female" class="button" onclick="clickSdg3Female()">Life Expectancy at Birth Female</button><br/>
+                <button id="btn_sdg3_male" class="button" onclick="clickSdg3Male()">Life Expectancy at Birth Male</button><br/>
+    
+                <button id="btn_sdg43_female" class="button" onclick="clickSdg43Female()">Expected Years of Schooling Female</button><br/>
+                <button id="btn_sdg43_male" class="button" onclick="clickSdg43Male()">Expected Years of Schooling Male</button><br/>
+    
+                <button id="btn_sdg44_female" class="button" onclick="clickSdg44Female()">Mean Years of Schooling Female</button><br/>
+                <button id="btn_sdg44_male" class="button" onclick="clickSdg44Male()">Mean Years of Schooling Male</button><br/>
+    
+                <button id="btn_sdg85_female" class="button" onclick="clickSdg85Female()">Estimated Gross National Income per Capita Female</button><br/>
+                <button id="btn_sdg85_male" class="button" onclick="clickSdg85Male()">Estimated Gross National Income per Capita Male</button><br/>
+            </div>
 
-            <button id="btn_sdg43_female" class="button" onclick="clickSdg43Female()">Expected Years of Schooling Female</button>
-            <button id="btn_sdg43_male" class="button" onclick="clickSdg43Male()">Expected Years of Schooling Male</button>
+            <div class="main">
+                <div id="one">
+                    <svg id="gdi" width="1000" height="600"></svg>
+                </div>
+                <div id="vs">
+                    <svg id="vs-female" width="1000" height="400"></svg>
+                    <svg id="vs-male" width="1000" height="400"></svg>
+                </div>
+            </div>
 
-            <button id="btn_sdg44_female" class="button" onclick="clickSdg44Female()">Mean Years of Schooling Female</button>
-            <button id="btn_sdg44_male" class="button" onclick="clickSdg44Male()">Mean Years of Schooling Male</button>
-
-            <button id="btn_sdg85_female" class="button" onclick="clickSdg85Female()">Estimated Gross National Income per Capita Female</button>
-            <button id="btn_sdg85_male" class="button" onclick="clickSdg85Male()">Estimated Gross National Income per Capita Male</button>
-        </div>
-        <div class="main">
-            <svg id="gdi" width="1200" height="600"></svg>
+            <div class="description-container">
+                <div id="gdi-description" class="description">
+                    <p>Most countries give less chance for female</p>
+                    <p>8 from 91 countries give chance for female better than male</p>
+                    <img width="180" height="auto" src="female-vs-male-gdi.png" alt="Female vs Male GDI">
+                </div>
+                <div id="hdi-description" class="description">
+                    <p>Most countries give less chance for female</p>
+                    <p>8 from 91 countries give chance for female better than male</p>
+                    <img width="180" height="auto" src="female-vs-male-gdi.png" alt="Female vs Male GDI">
+                </div>
+                <div id="sdg3-description" class="description">
+                    <p>Almost all countries has better life expectancy for female</p>
+                    <p>97 from 100 countries has better life expectancy for female</p>
+                </div>
+                <div id="sdg43-description" class="description">
+                    <p>Most countries has better expected year of schooling for female</p>
+                    <p>61 from 96 countries has better expected year of schooling for female</p>
+                </div>
+                <div id="sdg44-description" class="description">
+                    <p>Most countries give less mean year of schooling for female</p>
+                    <p>Only 27 from 93 countries give better mean year of schooling for female</p>
+                </div>
+                <div id="sdg85-description" class="description">
+                    <p>Most countries has less estimated gross national income per capita for female</p>
+                    <p>Only 3 from 95 countries has better estimated gross national income per capita for female than male</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -225,6 +284,7 @@
         function clickGdiValue() {
             console.log("clickGdiValue")
             renderMap("gdivalue")
+            showAppropriateDescription("#gdi-description")
             let allButton = document.querySelectorAll(".button")
             allButton.forEach(enableButton)
             let btnGdiValue = document.querySelector("#btn_gdi_value")
@@ -234,6 +294,7 @@
         function clickHdiFemale() {
             console.log("clickHdiFemale")
             renderMap("hdifemale")
+            showAppropriateDescription("#hdi-description")
             let allButton = document.querySelectorAll(".button")
             allButton.forEach(enableButton)
             let btnHdiFemale = document.querySelector("#btn_hdi_female")
@@ -243,6 +304,7 @@
         function clickHdiMale() {
             console.log("clickHdiMale")
             renderMap("hdimale")
+            showAppropriateDescription("#hdi-description")
             let allButton = document.querySelectorAll(".button")
             allButton.forEach(enableButton)
             let btnHdiMale = document.querySelector("#btn_hdi_male")
@@ -252,6 +314,7 @@
         function clickSdg3Female() {
             console.log("clickSdg3Female")
             renderMap("sdg3female")
+            showAppropriateDescription("#sdg3-description")
             let allButton = document.querySelectorAll(".button")
             allButton.forEach(enableButton)
             let btnSdg3Female = document.querySelector("#btn_sdg3_female")
@@ -261,6 +324,7 @@
         function clickSdg3Male() {
             console.log("clickSdg3Male")
             renderMap("sdg3male")
+            showAppropriateDescription("#sdg3-description")
             let allButton = document.querySelectorAll(".button")
             allButton.forEach(enableButton)
             let btnSdg3Male = document.querySelector("#btn_sdg3_male")
@@ -270,6 +334,7 @@
         function clickSdg43Female() {
             console.log("clickSdg43Female")
             renderMap("sdg43female")
+            showAppropriateDescription("#sdg43-description")
             let allButton = document.querySelectorAll(".button")
             allButton.forEach(enableButton)
             let btnSdg43Female = document.querySelector("#btn_sdg43_female")
@@ -279,6 +344,7 @@
         function clickSdg43Male() {
             console.log("clickSdg43Male")
             renderMap("sdg43male")
+            showAppropriateDescription("#sdg43-description")
             let allButton = document.querySelectorAll(".button")
             allButton.forEach(enableButton)
             let btnSdg43Male = document.querySelector("#btn_sdg43_male")
@@ -288,6 +354,7 @@
         function clickSdg44Female() {
             console.log("clickSdg44Female")
             renderMap("sdg44female")
+            showAppropriateDescription("#sdg44-description")
             let allButton = document.querySelectorAll(".button")
             allButton.forEach(enableButton)
             let btnSdg44Female = document.querySelector("#btn_sdg44_female")
@@ -297,6 +364,7 @@
         function clickSdg44Male() {
             console.log("clickSdg44Male")
             renderMap("sdg44male")
+            showAppropriateDescription("#sdg44-description")
             let allButton = document.querySelectorAll(".button")
             allButton.forEach(enableButton)
             let btnSdg44Male = document.querySelector("#btn_sdg44_male")
@@ -306,6 +374,7 @@
         function clickSdg85Female() {
             console.log("clickSdg85Female")
             renderMap("sdg85female")
+            showAppropriateDescription("#sdg85-description")
             let allButton = document.querySelectorAll(".button")
             allButton.forEach(enableButton)
             let btnSdg85Female = document.querySelector("#btn_sdg85_female")
@@ -315,6 +384,7 @@
         function clickSdg85Male() {
             console.log("clickSdg85Male")
             renderMap("sdg85male")
+            showAppropriateDescription("#sdg85-description")
             let allButton = document.querySelectorAll(".button")
             allButton.forEach(enableButton)
             let btnSdg85Male = document.querySelector("#btn_sdg85_male")
@@ -323,6 +393,17 @@
 
         function enableButton(button) {
             button.disabled = false
+        }
+
+        function showAppropriateDescription(idDescription) {
+            let allDescription = document.querySelectorAll(".description");
+            allDescription.forEach(hideDescription)
+            let selectedDescription = document.querySelector(idDescription);
+            selectedDescription.style.display = "block"
+        }
+
+        function hideDescription(description) {
+            description.style.display = "none";
         }
 
         function zoomed() {
