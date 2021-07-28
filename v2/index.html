@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .gdi { grid-area: gdi; }
+        .hdi { grid-area: hdi; }
+        .others { grid-area: others; }
+        .description { grid-area: description; }
+
+        .container {
+          background-color: rgba(255, 255, 255, 0.8);
+          text-align: left;
+          padding: 20px 0;
+          font-size: 30px;
+        }
+
+        .grid-container {
+          display: grid;
+          grid-template-areas:
+            'description gdi gdi gdi hdi hdi'
+            'description gdi gdi gdi hdi hdi'
+            'description others others others else else'
+            'description others others others else else';
+          grid-gap: 10px;
+          padding: 10px;
+        }
+
+        .grid-container > div {
+          background-color: rgba(255, 255, 255, 0.8);
+          text-align: center;
+          font-size: 30px;
+        }
+
+        .button {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .header {
+            padding: 30px;
+        }
+
+        .map {
+            padding: 30px 10px;
+        }
+
+        .description {
+            text-align: left;
+            margin: 0 0;
+        }
+
+        .others {
+            display:inline-grid;
+            grid-template-columns: auto auto;
+        }
+
+        .others > div > p {
+            font-size: 18px;
+            margin-bottom: 0;
+            margin-top: 20px;
+        }
+
+        .other {
+            display: inline-grid;
+            grid-template-columns: auto auto;
+        }
+
+    </style>
+    
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Female Development Compared to Male Development</h2>
+        </div>
+        <div class="grid-container">
+            <div class="description">
+                <p>Most countries give less chance for female</p>
+                <p>8 from 91 countries give chance for female better than male</p>
+                <img width="180" height="auto" src="female-vs-male-gdi.png" alt="Female vs Male GDI">
+            </div>
+
+            <div class="gdi">
+                <svg id="gdi" class="map" width="1200" height="600"></svg>
+            </div>
+
+            <div class="hdi">
+                <h5>Human Development Index</h5>
+                <div>
+                    <svg id="hdifemale" class="map" width="350" height="220"></svg>
+                    <div>
+                        <img class ="icon" width="auto" height="20" src="woman.png">
+                        <img class ="scale" width="auto" height="10" src="blues.png">
+                    </div>
+                </div>
+                <div>
+                    <svg id="hdimale" class="map" width="350" height="220"></svg>
+                    <div>
+                        <img class ="icon" width="auto" height="20" src="man.png">
+                        <img class ="scale" width="auto" height="10" src="blues.png">
+                    </div>
+                </div>
+            </div>
+
+            <div class="others">
+                <div id="sdg3">
+                    <p>Life expectancy at birth</p>
+                    <div class="other">
+                        <div>
+                            <svg id="sdg3female" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="woman.png">
+                                <img class ="scale" width="auto" height="10" src="ylgnbu.png">
+                            </div>
+                        </div>
+                        <div>
+                            <svg id="sdg3male" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="man.png">
+                                <img class ="scale" width="auto" height="10" src="ylgnbu.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sdg43">
+                    <p>Expected years of schooling</p>
+                    <div class="other">
+                        <div>
+                            <svg id="sdg43female" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="woman.png">
+                                <img class ="scale" width="auto" height="10" src="oranges.png">
+                            </div>
+                        </div>
+                        <div>
+                            <svg id="sdg43male" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="man.png">
+                                <img class ="scale" width="auto" height="10" src="oranges.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sdg44">
+                    <p>Mean years of schooling</p>
+                    <div class="other">
+                        <div>
+                            <svg id="sdg44female" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="woman.png">
+                                <img class ="scale" width="auto" height="10" src="oranges.png">
+                            </div>
+                        </div>
+                        <div>
+                            <svg id="sdg44male" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="man.png">
+                                <img class ="scale" width="auto" height="10" src="oranges.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sdg85">
+                    <p>Estimated gross national income per capita</p>
+                    <div class="other">
+                        <div>
+                            <svg id="sdg85female" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="woman.png">
+                                <img class ="scale" width="auto" height="10" src="greens.png">
+                            </div>
+                        </div>
+                        <div>
+                            <svg id="sdg85male" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="man.png">
+                                <img class ="scale" width="auto" height="10" src="greens.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var dataSource = d3.map();
+        var topology = null
+
+        // Load external data and boot
+        d3.queue()
+            .defer(d3.json, "https://raw.githubusercontent.com/adyanf/gdi_data_visualization/master/world.geojson")
+            .defer(d3.csv, "https://raw.githubusercontent.com/adyanf/gdi_data_visualization/master/gdi_index.csv", function(d) { 
+                dataSource.set(d.countryid, {
+                    "gdivalue": d.gdivalue,
+                    "hdifemale": d.hdifemale,
+                    "hdimale": d.hdimale,
+                    "hdirank": d.hdirank,
+                    "country": d.country,
+                    "countryid": d.countryid,
+                    "region": d.region,
+                    "humandevelopmentdegree": d.humandevelopmentdegree,
+                    "gdivalue": d.gdivalue,
+                    "gdigroup": d.gdigroup,
+                    "hdifemale": d.hdifemale,
+                    "hdimale": d.hdimale,
+                    "sdg3female": d.sdg3female,
+                    "sdg3male": d.sdg3male,
+                    "sdg43female": d.sdg43female,
+                    "sdg43male": d.sdg43male,
+                    "sdg44female": d.sdg44female,
+                    "sdg44male": d.sdg44male,
+                    "sdg85female": d.sdg85female,
+                    "sdg85male": d.sdg85male
+                });
+            })
+            .await(ready);
+
+        function ready(error, topo) {
+            topology = topo
+            createAllMap()
+        }
+
+        function createAllMap() {
+            createMap("#gdi", "gdi", 100, true)
+            createMap("#hdifemale", "hdifemale", 50, false)
+            createMap("#hdimale", "hdimale", 50, false)
+            createMap("#sdg3female", "sdg3female", 30, false)
+            createMap("#sdg3male", "sdg3male", 30, false)
+            createMap("#sdg43female", "sdg43female", 30, false)
+            createMap("#sdg43male", "sdg43male", 30, false)
+            createMap("#sdg44female", "sdg44female", 30, false)
+            createMap("#sdg44male", "sdg44male", 30, false)
+            createMap("#sdg85female", "sdg85female", 30, false)
+            createMap("#sdg85male", "sdg85male", 30, false)
+        }
+
+        function createMap(idSelector, type, scale, interactable) {
+
+            var path = d3.geoPath();
+
+            var map = d3.select(idSelector),
+            width = +map.attr("width"),
+            height = +map.attr("height");
+
+            var projection = d3.geoMercator()
+                .scale(scale)
+                .center([0,20])
+                .translate([width / 2, height / 2]);
+
+            var colorScale = null
+            if (type == "gdi") {
+                colorScale = d3.scaleThreshold()
+                .domain([0.899, 0.925, 0.95, 0.975, 1, 1.025])
+                .range(d3.schemeBlues[7]);
+            } else if (type == "hdifemale" || type == "hdimale") {
+                colorScale = d3.scaleThreshold()
+                .domain([0.2, 0.36, 0.52, 0.68, 0.84, 1])
+                .range(d3.schemeBuPu[7]);
+            } else if (type == "sdg3female" || type == "sdg3male") {
+                colorScale = d3.scaleThreshold()
+                .domain([50, 58, 66, 74, 82, 90])
+                .range(d3.schemeYlGnBu[7]);
+            } else if (type == "sdg43female" || type == "sdg43male") {
+                colorScale = d3.scaleThreshold()
+                .domain([0, 5, 10, 15, 20, 25])
+                .range(d3.schemeOranges[7]);
+            } else if (type == "sdg44female" || type == "sdg44male") {
+                colorScale = d3.scaleThreshold()
+                .domain([0, 5, 10, 15, 20, 25])
+                .range(d3.schemeOranges[7]);
+            } else if (type == "sdg85female" || type == "sdg85male") {
+                colorScale = d3.scaleThreshold()
+                .domain([0, 5000, 10000, 20000, 40000, 80000])
+                .range(d3.schemeGreens[7]);
+            }
+
+            let tooltip = d3.select("body")
+                .append("div")
+                .style("position", "absolute")
+                .style("z-index", "10")
+                .style("visibility", "hidden")
+                .style("background", "#fff")
+                .style("padding", "10px");
+
+            let mouseOver = function(d) {
+                if (interactable) {
+                    let data = dataSource.get(d.id)
+                    let text = (data != null) ? data.gdivalue: "Data not available";
+                    tooltip.text("GDI " + d.properties.name + ": " + text)
+                    tooltip.style("visibility", "visible")
+                }
+            }
+
+            let mouseMove = function() {
+                if (interactable) {
+                    tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px")
+                }
+            }
+
+            let mouseOut = function() {
+                if (interactable) {
+                    tooltip.style("visibility", "hidden")
+                }
+            }
+
+            map
+                .append("g")
+                .selectAll("path")
+                .data(topology.features)
+                .enter()
+                .append("path")
+                .attr("d", d3.geoPath()
+                    .projection(projection)
+                )
+                .attr("fill", function (d) {
+                    if (dataSource.get(d.id) != null) {
+                        if (type == "gdi") {
+                            d.total = dataSource.get(d.id).gdivalue || 0;
+                        } else if (type == "hdifemale") {
+                            d.total = dataSource.get(d.id).hdifemale || 0;
+                        } else if (type == "hdimale") {
+                            d.total = dataSource.get(d.id).hdimale || 0;
+                        } else if (type == "sdg3female") {
+                            d.total = dataSource.get(d.id).sdg3female || 0;
+                        } else if (type == "sdg3male") {
+                            d.total = dataSource.get(d.id).sdg3male || 0;
+                        } else if (type == "sdg43female") {
+                            d.total = dataSource.get(d.id).sdg43female || 0;
+                        } else if (type == "sdg43male") {
+                            d.total = dataSource.get(d.id).sdg43male || 0;
+                        } else if (type == "sdg44female") {
+                            d.total = dataSource.get(d.id).sdg44female || 0;
+                        } else if (type == "sdg44male") {
+                            d.total = dataSource.get(d.id).sdg44male || 0;
+                        } else if (type == "sdg85female") {
+                            d.total = dataSource.get(d.id).sdg85female || 0;
+                        } else if (type == "sdg85male") {
+                            d.total = dataSource.get(d.id).sdg85male || 0;
+                        }
+                    } else d.total = 0;
+                    if (d.total == 0) return "white";
+                    if (type == "gdi" && d.total > 1) return "pink";
+                    return colorScale(d.total);
+                })
+                .style("stroke", "black")
+                .attr("class", function(d){ return "Country" } )
+                .style("opacity", .8)
+                .on("mouseover", mouseOver)
+                .on("mousemove", mouseMove)
+                .on("mouseout", mouseOut)
+
+            if (interactable) {
+                let zoom = d3.zoom()
+                    .scaleExtent([1, 8])
+                    .on('zoom', zoomed);
+                
+                map.call(zoom)
+            }
+        }
+
+        function zoomed() {
+            d3.select("g")
+                .selectAll('path') // To prevent stroke width from scaling
+                .attr('transform', d3.event.transform);
+        }
+        </script>
+    </body>
+</html>
