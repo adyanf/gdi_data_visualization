@@ -3,28 +3,27 @@
 
 <head>
     <meta charset="utf-8">
-    <style>
-        .header { grid-area: header; }
-        .menu { grid-area: menu; }
-        .main { grid-area: main; }
-        
-        .grid-container {
-          display: grid;
-          grid-template-areas:
-            'menu header header header header header'
-            'menu main main main main main'
-            'menu main main main main main';
-          grid-gap: 10px;
-          padding: 10px;
-        }
-        
-        .grid-container > div {
+    <style>        
+        .container {
           background-color: rgba(255, 255, 255, 0.8);
           text-align: center;
           padding: 20px 0;
           font-size: 30px;
         }
-        </style>
+
+        .grid-container {
+            display: inline-grid;
+            grid-template-columns: auto auto auto;
+            padding: 10px;
+        }
+
+        .button {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    </style>
     
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v4.js"></script>
@@ -34,30 +33,27 @@
 </head>
 
 <body>
-    <div class="grid-container">
-        <div class="header">
+    <div class="container">
+        <div>
             <h1>Gender Development Index</h1>
             <h3>Year 2019</h3>
         </div>
-        <div class="menu">
-            Menu
-            <ul style="list-style-type:none">
-                <li><button id="btn_gdi_value" class="button" onclick="clickGdiValue()">Gender Development Index</button></li>
-                <li><button id="btn_hdi_female" class="button" onclick="clickHdiFemale()">Human Development Index Female</button></li>
-                <li><button id="btn_hdi_male" class="button" onclick="clickHdiMale()">Human Development Index Male</button></li>
+        <div class="grid-container" style="list-style-type:none">
+            <button id="btn_gdi_value" class="button" onclick="clickGdiValue()">Gender Development Index</button>
+            <button id="btn_hdi_female" class="button" onclick="clickHdiFemale()">Human Development Index Female</button>
+            <button id="btn_hdi_male" class="button" onclick="clickHdiMale()">Human Development Index Male</button>
 
-                <li><button id="btn_sdg3_female" class="button" onclick="clickSdg3Female()">Life Expectancy at Birth Female</button></li>
-                <li><button id="btn_sdg3_male" class="button" onclick="clickSdg3Male()">Life Expectancy at Birth Male</button></li>
+            <button id="btn_sdg3_female" class="button" onclick="clickSdg3Female()">Life Expectancy at Birth Female</button>
+            <button id="btn_sdg3_male" class="button" onclick="clickSdg3Male()">Life Expectancy at Birth Male</button>
 
-                <li><button id="btn_sdg43_female" class="button" onclick="clickSdg43Female()">Expected Years of Schooling Female</button></li>
-                <li><button id="btn_sdg43_male" class="button" onclick="clickSdg43Male()">Expected Years of Schooling Male</button></li>
+            <button id="btn_sdg43_female" class="button" onclick="clickSdg43Female()">Expected Years of Schooling Female</button>
+            <button id="btn_sdg43_male" class="button" onclick="clickSdg43Male()">Expected Years of Schooling Male</button>
 
-                <li><button id="btn_sdg44_female" class="button" onclick="clickSdg44Female()">Mean Years of Schooling Female</button></li>
-                <li><button id="btn_sdg44_male" class="button" onclick="clickSdg44Male()">Mean Years of Schooling Male</button></li>
+            <button id="btn_sdg44_female" class="button" onclick="clickSdg44Female()">Mean Years of Schooling Female</button>
+            <button id="btn_sdg44_male" class="button" onclick="clickSdg44Male()">Mean Years of Schooling Male</button>
 
-                <li><button id="btn_sdg85_female" class="button" onclick="clickSdg85Female()">Estimated Gross National Income per Capita Female</button></li>
-                <li><button id="btn_sdg85_male" class="button" onclick="clickSdg85Male()">Estimated Gross National Income per Capita Male</button></li>
-            </ul>
+            <button id="btn_sdg85_female" class="button" onclick="clickSdg85Female()">Estimated Gross National Income per Capita Female</button>
+            <button id="btn_sdg85_male" class="button" onclick="clickSdg85Male()">Estimated Gross National Income per Capita Male</button>
         </div>
         <div class="main">
             <svg id="gdi" width="1200" height="600"></svg>
@@ -104,26 +100,6 @@
         }
 
         function renderMap(type) {
-            // hover function
-            let mouseOver = function(d) {
-                if (d.total != 0) {
-                    d3.select(this)
-                    .transition()
-                    .duration(200)
-                    .style("opacity", 1)
-                    .style("stroke", "black")
-                }
-            }
-
-            let mouseLeave = function(d) {
-                if (d.total != 0) {
-                    d3.select(this)
-                    .transition()
-                    .duration(200)
-                    .style("stroke", "transparent")
-                }
-            }
-
             // The map path
             var path = d3.geoPath();
             
@@ -140,6 +116,32 @@
             let zoom = d3.zoom()
             .scaleExtent([1, 8])
             .on('zoom', zoomed);
+
+            // hover function
+            let tooltip = d3.select("body")
+                .append("div")
+                .style("position", "absolute")
+                .style("z-index", "10")
+                .style("visibility", "hidden")
+                .style("background", "#fff")
+                .style("padding", "10px")
+                .text("a simple tooltip");
+
+            let mouseOver = function(d) {
+                console.log(d);
+                let data = dataSource.get(d.id)
+                let text = (data != null) ? d.total : "Data not available";
+                tooltip.text(d.properties.name + ": " + text)
+                tooltip.style("visibility", "visible")
+            }
+
+            let mouseMove = function() {
+                tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px")
+            }
+
+            let mouseOut = function() {
+                tooltip.style("visibility", "hidden")
+            }
 
             var colorScaleGdi = null
              if (type == "gdivalue") {
@@ -201,20 +203,21 @@
                         } else if (type == "sdg44male") {
                             d.total = dataSource.get(d.id).sdg44male || 0;
                         } else if (type == "sdg85female") {
-                            d.total = dataSource.get(d.id).sdg85female || 0;
+                            d.total = Number(dataSource.get(d.id).sdg85female).toFixed(2) || 0;
                         } else if (type == "sdg85male") {
-                            d.total = dataSource.get(d.id).sdg85male || 0;
+                            d.total = Number(dataSource.get(d.id).sdg85male).toFixed(2) || 0;
                         }
                     } else d.total = 0;
                     if (d.total == 0) return "white";
                     if (type == "gdivalue" && d.total > 1) return "pink";
                     return colorScaleGdi(d.total);
                 })
-                .style("stroke", "transparent")
+                .style("stroke", "black")
                 .attr("class", function(d){ return "Country" } )
                 .style("opacity", .8)
                 .on("mouseover", mouseOver)
-                .on("mouseleave", mouseLeave)
+                .on("mousemove", mouseMove)
+                .on("mouseout", mouseOut)
                 
             svgGdi.call(zoom);
         }
