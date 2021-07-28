@@ -12,13 +12,14 @@
         body {
             font-family: 'Roboto', sans-serif;
         }
-        .menu { grid-area: menu; }
-        .main { grid-area: main; }
-        .description-container { grid-area: description-container; }
+        .gdi { grid-area: gdi; }
+        .hdi { grid-area: hdi; }
+        .others { grid-area: others; }
+        .description { grid-area: description; }
 
         .container {
           background-color: rgba(255, 255, 255, 0.8);
-          text-align: center;
+          text-align: left;
           padding: 20px 0;
           font-size: 30px;
         }
@@ -26,7 +27,10 @@
         .grid-container {
           display: grid;
           grid-template-areas:
-            'menu main main main main description-container';
+            'description gdi gdi gdi hdi hdi'
+            'description gdi gdi gdi hdi hdi'
+            'description others others others else else'
+            'description others others others else else';
           grid-gap: 10px;
           padding: 10px;
         }
@@ -34,7 +38,6 @@
         .grid-container > div {
           background-color: rgba(255, 255, 255, 0.8);
           text-align: center;
-          padding: 20px 0;
           font-size: 30px;
         }
 
@@ -44,6 +47,36 @@
             margin-left: 20px;
             margin-right: 20px;
         }
+
+        .header {
+            padding: 30px;
+        }
+
+        .map {
+            padding: 30px 10px;
+        }
+
+        .description {
+            text-align: left;
+            margin: 0 0;
+        }
+
+        .others {
+            display:inline-grid;
+            grid-template-columns: auto auto;
+        }
+
+        .others > div > p {
+            font-size: 18px;
+            margin-bottom: 0;
+            margin-top: 20px;
+        }
+
+        .other {
+            display: inline-grid;
+            grid-template-columns: auto auto;
+        }
+
     </style>
     
     <!-- Load d3.js -->
@@ -55,58 +88,114 @@
 
 <body>
     <div class="container">
-        <div>
-            <h1>Gender Development Index Year 2019</h1>
+        <div class="header">
+            <h2>Female Development Compared to Male Development</h2>
         </div>
         <div class="grid-container">
-
-            <div class="menu">
-                <button id="btn_gdi" class="button" onclick="clickGdi()">Gender Development Index</button><br/>
-                <button id="btn_hdi" class="button" onclick="clickHdi()">Human Development Index</button><br/>
-                <button id="btn_sdg3" class="button" onclick="clickSdg3()">Life Expectancy at Birth</button><br/>
-                <button id="btn_sdg43" class="button" onclick="clickSdg43()">Expected Years of Schooling</button><br/>
-                <button id="btn_sdg44" class="button" onclick="clickSdg44()">Mean Years of Schooling</button><br/>
-                <button id="btn_sdg85" class="button" onclick="clickSdg85()">Estimated Gross National Income per Capita</button><br/>
+            <div class="description">
+                <p>Most countries give less chance for female</p>
+                <p>8 from 91 countries give chance for female better than male</p>
+                <img width="180" height="auto" src="female-vs-male-gdi.png" alt="Female vs Male GDI">
             </div>
 
-            <div class="main">
-                <div id="single">
-                    <svg id="gdi" width="1000" height="600"></svg>
+            <div class="gdi">
+                <svg id="gdi" class="map" width="1200" height="600"></svg>
+            </div>
+
+            <div class="hdi">
+                <h5>Human Development Index</h5>
+                <div>
+                    <svg id="hdifemale" class="map" width="350" height="220"></svg>
+                    <div>
+                        <img class ="icon" width="auto" height="20" src="woman.png">
+                        <img class ="scale" width="auto" height="10" src="blues.png">
+                    </div>
                 </div>
-                <div id="vs" style="display: none;">
-                    <h3 id="vs-female-title">Female</h3>
-                    <svg id="vs-female-map" width="1000" height="400"></svg>
-                    <h3 id="vs-male-title">Male</h3>
-                    <svg id="vs-male-map" width="1000" height="400"></svg>
+                <div>
+                    <svg id="hdimale" class="map" width="350" height="220"></svg>
+                    <div>
+                        <img class ="icon" width="auto" height="20" src="man.png">
+                        <img class ="scale" width="auto" height="10" src="blues.png">
+                    </div>
                 </div>
             </div>
 
-            <div class="description-container">
-                <div id="gdi-description" class="description">
-                    <p>Most countries give less chance for female</p>
-                    <p>8 from 91 countries give chance for female better than male</p>
-                    <img width="180" height="auto" src="female-vs-male-gdi.png" alt="Female vs Male GDI">
+            <div class="others">
+                <div id="sdg3">
+                    <p>Life expectancy at birth</p>
+                    <div class="other">
+                        <div>
+                            <svg id="sdg3female" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="woman.png">
+                                <img class ="scale" width="auto" height="10" src="ylgnbu.png">
+                            </div>
+                        </div>
+                        <div>
+                            <svg id="sdg3male" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="man.png">
+                                <img class ="scale" width="auto" height="10" src="ylgnbu.png">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="hdi-description" class="description" style="display: none;">
-                    <p>Most countries give less chance for female</p>
-                    <p>8 from 91 countries give chance for female better than male</p>
-                    <img width="180" height="auto" src="female-vs-male-gdi.png" alt="Female vs Male GDI">
+                <div id="sdg43">
+                    <p>Expected years of schooling</p>
+                    <div class="other">
+                        <div>
+                            <svg id="sdg43female" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="woman.png">
+                                <img class ="scale" width="auto" height="10" src="oranges.png">
+                            </div>
+                        </div>
+                        <div>
+                            <svg id="sdg43male" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="man.png">
+                                <img class ="scale" width="auto" height="10" src="oranges.png">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="sdg3-description" class="description" style="display: none;">
-                    <p>Almost all countries has better life expectancy for female</p>
-                    <p>97 from 100 countries has better life expectancy for female</p>
+                <div id="sdg44">
+                    <p>Mean years of schooling</p>
+                    <div class="other">
+                        <div>
+                            <svg id="sdg44female" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="woman.png">
+                                <img class ="scale" width="auto" height="10" src="oranges.png">
+                            </div>
+                        </div>
+                        <div>
+                            <svg id="sdg44male" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="man.png">
+                                <img class ="scale" width="auto" height="10" src="oranges.png">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="sdg43-description" class="description" style="display: none;">
-                    <p>Most countries has better expected year of schooling for female</p>
-                    <p>61 from 96 countries has better expected year of schooling for female</p>
-                </div>
-                <div id="sdg44-description" class="description" style="display: none;">
-                    <p>Most countries give less mean year of schooling for female</p>
-                    <p>Only 27 from 93 countries give better mean year of schooling for female</p>
-                </div>
-                <div id="sdg85-description" class="description" style="display: none;">
-                    <p>Most countries has less estimated gross national income per capita for female</p>
-                    <p>Only 3 from 95 countries has better estimated gross national income per capita for female than male</p>
+                <div id="sdg85">
+                    <p>Estimated gross national income per capita</p>
+                    <div class="other">
+                        <div>
+                            <svg id="sdg85female" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="woman.png">
+                                <img class ="scale" width="auto" height="10" src="greens.png">
+                            </div>
+                        </div>
+                        <div>
+                            <svg id="sdg85male" class="map" width="220" height="130"></svg>
+                            <div>
+                                <img class ="icon" width="auto" height="20" src="man.png">
+                                <img class ="scale" width="auto" height="10" src="greens.png">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -148,32 +237,63 @@
 
         function ready(error, topo) {
             topology = topo
-            clickGdi()
+            createAllMap()
         }
 
-        function renderSingleMap(type) {
-            cleanAllMap()
-            let singleMap = document.querySelector("#single")
-            singleMap.style.display = "block";
+        function createAllMap() {
+            createMap("#gdi", "gdi", 100, true)
+            createMap("#hdifemale", "hdifemale", 50, false)
+            createMap("#hdimale", "hdimale", 50, false)
+            createMap("#sdg3female", "sdg3female", 30, false)
+            createMap("#sdg3male", "sdg3male", 30, false)
+            createMap("#sdg43female", "sdg43female", 30, false)
+            createMap("#sdg43male", "sdg43male", 30, false)
+            createMap("#sdg44female", "sdg44female", 30, false)
+            createMap("#sdg44male", "sdg44male", 30, false)
+            createMap("#sdg85female", "sdg85female", 30, false)
+            createMap("#sdg85male", "sdg85male", 30, false)
+        }
 
-            // The map path
+        function createMap(idSelector, type, scale, interactable) {
+
             var path = d3.geoPath();
-            
-            // The gender development index
-            var gdiMap = d3.select("#gdi"),
-            widthGdi = +gdiMap.attr("width"),
-            heightGdi = +gdiMap.attr("height");
 
-            var projectionGdi = d3.geoMercator()
-            .scale(100)
-            .center([0,20])
-            .translate([widthGdi / 2, heightGdi / 2]);
+            var map = d3.select(idSelector),
+            width = +map.attr("width"),
+            height = +map.attr("height");
 
-            let zoom = d3.zoom()
-            .scaleExtent([1, 8])
-            .on('zoom', zoomed);
+            var projection = d3.geoMercator()
+                .scale(scale)
+                .center([0,20])
+                .translate([width / 2, height / 2]);
 
-            // hover function
+            var colorScale = null
+            if (type == "gdi") {
+                colorScale = d3.scaleThreshold()
+                .domain([0.899, 0.925, 0.95, 0.975, 1, 1.025])
+                .range(d3.schemeBlues[7]);
+            } else if (type == "hdifemale" || type == "hdimale") {
+                colorScale = d3.scaleThreshold()
+                .domain([0.2, 0.36, 0.52, 0.68, 0.84, 1])
+                .range(d3.schemeBuPu[7]);
+            } else if (type == "sdg3female" || type == "sdg3male") {
+                colorScale = d3.scaleThreshold()
+                .domain([50, 58, 66, 74, 82, 90])
+                .range(d3.schemeYlGnBu[7]);
+            } else if (type == "sdg43female" || type == "sdg43male") {
+                colorScale = d3.scaleThreshold()
+                .domain([0, 5, 10, 15, 20, 25])
+                .range(d3.schemeOranges[7]);
+            } else if (type == "sdg44female" || type == "sdg44male") {
+                colorScale = d3.scaleThreshold()
+                .domain([0, 5, 10, 15, 20, 25])
+                .range(d3.schemeOranges[7]);
+            } else if (type == "sdg85female" || type == "sdg85male") {
+                colorScale = d3.scaleThreshold()
+                .domain([0, 5000, 10000, 20000, 40000, 80000])
+                .range(d3.schemeGreens[7]);
+            }
+
             let tooltip = d3.select("body")
                 .append("div")
                 .style("position", "absolute")
@@ -183,43 +303,64 @@
                 .style("padding", "10px");
 
             let mouseOver = function(d) {
-                console.log(d);
-                let data = dataSource.get(d.id)
-                let text = (data != null) ? d.total : "Data not available";
-                tooltip.text(d.properties.name + ": " + text)
-                tooltip.style("visibility", "visible")
+                if (interactable) {
+                    let data = dataSource.get(d.id)
+                    let text = (data != null) ? data.gdivalue: "Data not available";
+                    tooltip.text("GDI " + d.properties.name + ": " + text)
+                    tooltip.style("visibility", "visible")
+                }
             }
 
             let mouseMove = function() {
-                tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px")
+                if (interactable) {
+                    tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px")
+                }
             }
 
             let mouseOut = function() {
-                tooltip.style("visibility", "hidden")
+                if (interactable) {
+                    tooltip.style("visibility", "hidden")
+                }
             }
 
-            var colorScaleGdi = colorScaleGdi = d3.scaleThreshold()
-                .domain([0.899, 0.925, 0.95, 0.975, 1, 1.025])
-                .range(d3.schemeBlues[7]);
-            
-            gdiMap
+            map
                 .append("g")
                 .selectAll("path")
                 .data(topology.features)
                 .enter()
                 .append("path")
-                // draw each country
                 .attr("d", d3.geoPath()
-                    .projection(projectionGdi)
+                    .projection(projection)
                 )
-                // set the color of each country
                 .attr("fill", function (d) {
                     if (dataSource.get(d.id) != null) {
-                        d.total = dataSource.get(d.id).gdivalue || 0;
+                        if (type == "gdi") {
+                            d.total = dataSource.get(d.id).gdivalue || 0;
+                        } else if (type == "hdifemale") {
+                            d.total = dataSource.get(d.id).hdifemale || 0;
+                        } else if (type == "hdimale") {
+                            d.total = dataSource.get(d.id).hdimale || 0;
+                        } else if (type == "sdg3female") {
+                            d.total = dataSource.get(d.id).sdg3female || 0;
+                        } else if (type == "sdg3male") {
+                            d.total = dataSource.get(d.id).sdg3male || 0;
+                        } else if (type == "sdg43female") {
+                            d.total = dataSource.get(d.id).sdg43female || 0;
+                        } else if (type == "sdg43male") {
+                            d.total = dataSource.get(d.id).sdg43male || 0;
+                        } else if (type == "sdg44female") {
+                            d.total = dataSource.get(d.id).sdg44female || 0;
+                        } else if (type == "sdg44male") {
+                            d.total = dataSource.get(d.id).sdg44male || 0;
+                        } else if (type == "sdg85female") {
+                            d.total = dataSource.get(d.id).sdg85female || 0;
+                        } else if (type == "sdg85male") {
+                            d.total = dataSource.get(d.id).sdg85male || 0;
+                        }
                     } else d.total = 0;
                     if (d.total == 0) return "white";
-                    if (type == "gdivalue" && d.total > 1) return "pink";
-                    return colorScaleGdi(d.total);
+                    if (type == "gdi" && d.total > 1) return "pink";
+                    return colorScale(d.total);
                 })
                 .style("stroke", "black")
                 .attr("class", function(d){ return "Country" } )
@@ -227,257 +368,20 @@
                 .on("mouseover", mouseOver)
                 .on("mousemove", mouseMove)
                 .on("mouseout", mouseOut)
+
+            if (interactable) {
+                let zoom = d3.zoom()
+                    .scaleExtent([1, 8])
+                    .on('zoom', zoomed);
                 
-            gdiMap.call(zoom);
-        }
-
-        function renderDualMap(type) {
-            cleanAllMap()
-            let vsMap = document.querySelector("#vs")
-            vsMap.style.display = "block";
-
-            // The map path
-            var path = d3.geoPath();
-            
-            // The female map
-            var femaleMap = d3.select("#vs-female-map"),
-            widthFemaleMap = +femaleMap.attr("width"),
-            heightFemaleMap = +femaleMap.attr("height");
-
-            var projectionFemaleMap = d3.geoMercator()
-                .scale(75)
-                .center([0,20])
-                .translate([widthFemaleMap / 2, heightFemaleMap / 2]);
-
-            // The male map
-            var maleMap = d3.select("#vs-male-map"),
-            widthMaleMap = +maleMap.attr("width"),
-            heightMaleMap = +maleMap.attr("height");
-
-            var projectionMaleMap = d3.geoMercator()
-                .scale(75)
-                .center([0,20])
-                .translate([widthMaleMap / 2, heightMaleMap / 2]);
-
-            // hover function
-            let tooltip = d3.select("body")
-                .append("div")
-                .style("position", "absolute")
-                .style("z-index", "10")
-                .style("visibility", "hidden")
-                .style("background", "#fff")
-                .style("padding", "10px");
-
-            let mouseOverFemale = function(d) {
-                let data = dataSource.get(d.id)
-                let text = (data != null) ? d.totalFemale : "Data not available";
-                tooltip.text(d.properties.name + ": " + text)
-                tooltip.style("visibility", "visible")
+                map.call(zoom)
             }
-
-            let mouseOverMale = function(d) {
-                let data = dataSource.get(d.id)
-                let text = (data != null) ? d.totalMale : "Data not available";
-                tooltip.text(d.properties.name + ": " + text)
-                tooltip.style("visibility", "visible")
-            }
-
-            let mouseMove = function() {
-                tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px")
-            }
-
-            let mouseOut = function() {
-                tooltip.style("visibility", "hidden")
-            }
-
-            var colorScale = null
-            if (type == "hdi") {
-                colorScale = d3.scaleThreshold()
-                .domain([0.2, 0.36, 0.52, 0.68, 0.84, 1])
-                .range(d3.schemeBuPu[7]);
-            } else if (type == "sdg3") {
-                colorScale = d3.scaleThreshold()
-                .domain([50, 58, 66, 74, 82, 90])
-                .range(d3.schemeYlGnBu[7]);
-            } else if (type == "sdg43") {
-                colorScale = d3.scaleThreshold()
-                .domain([0, 5, 10, 15, 20, 25])
-                .range(d3.schemeOranges[7]);
-            } else if (type == "sdg44") {
-                colorScale = d3.scaleThreshold()
-                .domain([0, 5, 10, 15, 20, 25])
-                .range(d3.schemeOranges[7]);
-            } else if (type == "sdg85") {
-                colorScale = d3.scaleThreshold()
-                .domain([0, 5000, 10000, 20000, 40000, 80000])
-                .range(d3.schemeGreens[7]);
-            }
-
-            femaleMap
-                .append("g")
-                .selectAll("path")
-                .data(topology.features)
-                .enter()
-                .append("path")
-                // draw each country
-                .attr("d", d3.geoPath()
-                    .projection(projectionFemaleMap)
-                )
-                // set the color of each country
-                .attr("fill", function (d) {
-                    if (dataSource.get(d.id) != null) {
-                        if (type == "hdi") {
-                            d.totalFemale = dataSource.get(d.id).hdifemale || 0;
-                        } else if (type == "sdg3") {
-                            d.totalFemale = dataSource.get(d.id).sdg3female || 0;
-                        } else if (type == "sdg43") {
-                            d.totalFemale = dataSource.get(d.id).sdg43female || 0;
-                        } else if (type == "sdg44") {
-                            d.totalFemale = dataSource.get(d.id).sdg44female || 0;
-                        }else if (type == "sdg85") {
-                            d.totalFemale = Number(dataSource.get(d.id).sdg85female).toFixed(2) || 0;
-                        }
-                    } else d.totalFemale = 0;
-                    if (d.totalFemale == 0) return "white";
-                    return colorScale(d.totalFemale);
-                })
-                .style("stroke", "black")
-                .attr("class", function(d){ return "Country-Female" } )
-                .style("opacity", .8)
-                .on("mouseover", mouseOverFemale)
-                .on("mousemove", mouseMove)
-                .on("mouseout", mouseOut)
-
-            maleMap
-                .append("g")
-                .selectAll("path")
-                .data(topology.features)
-                .enter()
-                .append("path")
-                // draw each country
-                .attr("d", d3.geoPath()
-                    .projection(projectionMaleMap)
-                )
-                // set the color of each country
-                .attr("fill", function (d) {
-                    if (dataSource.get(d.id) != null) {
-                        if (type == "hdi") {
-                            d.totalMale = dataSource.get(d.id).hdimale || 0;
-                        } else if (type == "sdg3") {
-                            d.totalMale = dataSource.get(d.id).sdg3male || 0;
-                        } else if (type == "sdg43") {
-                            d.totalMale = dataSource.get(d.id).sdg43male || 0;
-                        } else if (type == "sdg44") {
-                            d.totalMale = dataSource.get(d.id).sdg44male || 0;
-                        }else if (type == "sdg85") {
-                            d.totalMale = Number(dataSource.get(d.id).sdg85male).toFixed(2) || 0;
-                        }
-                    } else d.totalMale = 0;
-                    if (d.totalMale == 0) return "white";
-                    return colorScale(d.totalMale);
-                })
-                .style("stroke", "black")
-                .attr("class", function(d){ return "Country-Male" } )
-                .style("opacity", .8)
-                .on("mouseover", mouseOverMale)
-                .on("mousemove", mouseMove)
-                .on("mouseout", mouseOut)
-        }
-
-        function cleanAllMap() {
-            var gdiMap = d3.select("#gdi")
-            var maleMap = d3.select("#vs-male-map")
-            var femaleMap = d3.select("#vs-female-map")
-            gdiMap.selectAll("*").remove();
-            maleMap.selectAll("*").remove();
-            femaleMap.selectAll("*").remove()
-
-            var singleMap = document.querySelector("#single")
-            var vsMap = document.querySelector("#vs")
-            singleMap.style.display = "none"
-            vsMap.style.display = "none"
         }
 
         function zoomed() {
             d3.select("g")
                 .selectAll('path') // To prevent stroke width from scaling
                 .attr('transform', d3.event.transform);
-        }
-
-        function clickGdi() {
-            console.log("clickGdi")
-            renderSingleMap("gdivalue")
-            showAppropriateDescription("#gdi-description")
-            handleButtonState("#btn_gdi")
-        }
-
-        function clickHdi() {
-            console.log("clickHdi")
-            changeMapTitle("Human Development Index")
-            renderDualMap("hdi")
-            showAppropriateDescription("#hdi-description")
-            handleButtonState("#btn_hdi")
-        }
-
-        function clickSdg3() {
-            console.log("clickSdg3")
-            changeMapTitle("Life Expectancy at Birth")
-            renderDualMap("sdg3")
-            showAppropriateDescription("#sdg3-description")
-            handleButtonState("#btn_sdg3")
-        }
-
-        function clickSdg43() {
-            console.log("clickSdg43")
-            changeMapTitle("Expected Years of Schooling")
-            renderDualMap("sdg43")
-            showAppropriateDescription("#sdg43-description")
-            handleButtonState("#btn_sdg43")
-        }
-
-        function clickSdg44() {
-            console.log("clickSdg44")
-            changeMapTitle("Mean Years of Schooling")
-            renderDualMap("sdg44")
-            showAppropriateDescription("#sdg44-description")
-            handleButtonState("#btn_sdg44")
-        }
-
-        function clickSdg85() {
-            console.log("clickSdg85")
-            changeMapTitle("Estimated Gross National Income per Capita")
-            renderDualMap("sdg85")
-            showAppropriateDescription("#sdg85-description")
-            handleButtonState("#btn_sdg85")
-        }
-
-        function showAppropriateDescription(idDescription) {
-            let allDescription = document.querySelectorAll(".description");
-            allDescription.forEach(hideDescription)
-            let selectedDescription = document.querySelector(idDescription);
-            selectedDescription.style.display = "block"
-        }
-
-        function handleButtonState(clickedId) {
-            let allButton = document.querySelectorAll(".button")
-            allButton.forEach(enableButton)
-            let clickedButton = document.querySelector(clickedId)
-            clickedButton.disabled = true
-        }
-
-        function changeMapTitle(type) {
-            let femaleTitle = document.querySelector("#vs-female-title")
-            let maleTitle = document.querySelector("#vs-male-title")
-            femaleTitle.text = type + " - Female"
-            maleTitle.text = type + " - Male"
-        }
-
-        function enableButton(button) {
-            button.disabled = false
-        }
-
-        function hideDescription(description) {
-            description.style.display = "none";
         }
         </script>
     </body>
