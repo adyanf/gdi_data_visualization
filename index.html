@@ -1,484 +1,505 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+  <head>
+	
+	<title>Tugas Besar 3</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {
+        'packages':['geochart'],
+        // Note: Because this chart requires geocoding, you'll need mapsApiKey.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+		var map1= [
+          ['Country',   'GDI'],
+		  ['Norway', { v:0,f:0.989}],['Ireland', { v:0,f:0.981}],['Switzerland', { v:0,f:0.967}],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, { v:0,f:0.972}],['Australia', { v:0,f:0.976}],['Denmark', { v:0,f:0.982}],['Finland', { v:0,f:0.989}],['Singapore', { v:0,f:0.985}],['United Kingdom', { v:0,f:0.969}],['Belgium', { v:0,f:0.973}],['New Zealand', { v:0,f:0.964}],['Austria', { v:0,f:0.963}],['Japan', { v:0,f:0.977}],[{v: 'KR', f: 'Korea (Republic of)'}, { v:0,f:0.936}],['United Arab Emirates', { v:0,f:0.93}],['Saudi Arabia', { v:0,f:0.896}],['Bahrain', { v:0,f:0.921}],['Chile', { v:0,f:0.962}],['Qatar', { v:1,f:1.029}],['Argentina', { v:0,f:0.993}],[{v: 'BN', f: 'Brunei Darussalam'}, { v:0,f:0.98}],['Kazakhstan', { v:0,f:0.98}],[{v: 'RU', f: 'Russian Federation'}, { v:1,f:1.006}],['Uruguay', { v:1,f:1.016}],['Bulgaria', { v:0,f:0.994}],['Panama', { v:1,f:1.019}],['Barbados', { v:1,f:1.008}],['Oman', { v:0,f:0.935}],['Georgia', { v:0,f:0.979}],['Costa Rica', { v:0,f:0.981}],['Malaysia', { v:0,f:0.971}],['Kuwait', { v:0,f:0.983}],['Serbia', { v:0,f:0.977}],['Mauritius', { v:0,f:0.975}],['Cuba', { v:0,f:0.943}],['Sri Lanka', { v:0,f:0.955}],['Bosnia and Herzegovina', { v:0,f:0.937}],['Grenada', { v:null,f:null}],['Mexico', { v:0,f:0.96}],['Ukraine', { v:1,f:1}],['Peru', { v:0,f:0.957}],['Thailand', { v:1,f:1.007}],['Armenia', { v:0,f:0.982}],['Colombia', { v:0,f:0.989}],['Brazil', { v:0,f:0.993}],['China', { v:0,f:0.957}],['Ecuador', { v:0,f:0.967}],['Dominican Republic', { v:0,f:0.998}],['Algeria', { v:0,f:0.858}],['Lebanon', { v:0,f:0.892}],['Maldives', { v:0,f:0.923}],['Tunisia', { v:0,f:0.9}],['Suriname', { v:0,f:0.985}],['Jamaica', { v:0,f:0.994}],['Jordan', { v:0,f:0.874}],['Libya', { v:0,f:0.976}],['Uzbekistan', { v:0,f:0.938}],['Indonesia', { v:0,f:0.94}],['Philippines', { v:1,f:1.006}],['South Africa', { v:0,f:0.986}],['Egypt', { v:0,f:0.882}],[{v: 'VN', f: 'Viet Nam'}, { v:0,f:0.997}],['Gabon', { v:0,f:0.915}],['Iraq', { v:0,f:0.774}],['El Salvador', { v:0,f:0.974}],['Tajikistan', { v:0,f:0.823}],['Bhutan', { v:0,f:0.92}],['India', { v:0,f:0.82}],['Honduras', { v:0,f:0.978}],['Bangladesh', { v:0,f:0.904}],['Sao Tome and Principe', { v:0,f:0.906}],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, { v:0,f:0.927}],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, { v:0,f:0.996}],['Ghana', { v:0,f:0.91}],[{v: 'TL', f: 'Timor-Leste'}, { v:0,f:0.942}],['Nepal', { v:0,f:0.933}],['Kenya', { v:0,f:0.936}],['Cambodia', { v:0,f:0.922}],['Equatorial Guinea', { v:null,f:null}],['Zambia', { v:0,f:0.958}],['Myanmar', { v:0,f:0.953}],['Zimbabwe', { v:0,f:0.931}],[{v: 'SY', f: 'Syrian Arab Republic'}, { v:0,f:0.828}],['Cameroon', { v:0,f:0.864}],['Pakistan', { v:0,f:0.744}],['Papua New Guinea', { v:null,f:null}],['Benin', { v:0,f:0.854}],['Uganda', { v:0,f:0.863}],['Djibouti', { v:null,f:null}],['Afghanistan', { v:0,f:0.659}],['Haiti', { v:0,f:0.875}],['Yemen', { v:0,f:0.488}],['Eritrea', { v:null,f:null}],['Burundi', { v:0,f:0.999}],[{v: 'SS', f: 'South Sudan'}, { v:0,f:0.841}],['Niger', { v:0,f:0.723}],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, { v:null,f:null}],[{v: 'MC', f: 'Monaco'}, { v:null,f:null}],[{v: 'SM', f: 'San Marino'}, { v:null,f:null}],[{v: 'TV', f: 'Tuvalu'}, { v:null,f:null}]
 
-<head>
-    <meta charset="utf-8">
+        ];
+		var map2 = [
+          ['Country',   'Male SDG 3', 'Female SDG 3'],
+		  ['Norway', {v:1, f:80.44 }, 84.37],['Ireland', {v:1, f:80.66 }, 83.9],['Switzerland', {v:1, f:81.87 }, 85.59],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, {v:1, f:81.97 }, 87.74],['Australia', {v:1, f:81.49 }, 85.4],['Denmark', {v:1, f:78.94 }, 82.86],['Finland', {v:1, f:79.09 }, 84.71],['Singapore', {v:1, f:81.52 }, 85.72],['United Kingdom', {v:1, f:79.61 }, 82.99],['Belgium', {v:1, f:79.32 }, 83.88],['New Zealand', {v:1, f:80.57 }, 83.98],['Austria', {v:1, f:79.16 }, 83.86],['Japan', {v:1, f:81.49 }, 87.66],[{v: 'KR', f: 'Korea (Republic of)'}, {v:1, f:79.93 }, 85.95],['United Arab Emirates', {v:1, f:77.29 }, 79.31],['Saudi Arabia', {v:1, f:73.93 }, 76.75],['Bahrain', {v:1, f:76.43 }, 78.42],['Chile', {v:1, f:77.77 }, 82.44],['Qatar', {v:1, f:79.14 }, 82.01],['Argentina', {v:1, f:73.24 }, 79.99],[{v: 'BN', f: 'Brunei Darussalam'}, {v:1, f:74.72 }, 77.1],['Kazakhstan', {v:1, f:69.23 }, 77.66],[{v: 'RU', f: 'Russian Federation'}, {v:1, f:67.14 }, 77.78],['Uruguay', {v:1, f:74.11 }, 81.47],['Bulgaria', {v:1, f:71.55 }, 78.66],['Panama', {v:1, f:75.42 }, 81.75],['Barbados', {v:1, f:77.81 }, 80.48],['Oman', {v:1, f:76.12 }, 80.34],['Georgia', {v:1, f:69.34 }, 78.14],['Costa Rica', {v:1, f:77.73 }, 82.89],['Malaysia', {v:1, f:74.23 }, 78.31],['Kuwait', {v:1, f:74.76 }, 76.58],['Serbia', {v:1, f:73.4 }, 78.61],['Mauritius', {v:1, f:71.65 }, 78.45],['Cuba', {v:1, f:76.84 }, 80.77],['Sri Lanka', {v:1, f:73.59 }, 80.26],['Bosnia and Herzegovina', {v:1, f:74.89 }, 79.85],['Grenada', {v:1, f:70.07 }, 74.95],['Mexico', {v:1, f:72.2 }, 77.87],['Ukraine', {v:1, f:67.09 }, 76.84],['Peru', {v:1, f:74.06 }, 79.5],['Thailand', {v:1, f:73.46 }, 80.9],['Armenia', {v:1, f:71.32 }, 78.51],['Colombia', {v:1, f:74.52 }, 80.01],['Brazil', {v:1, f:72.24 }, 79.55],['China', {v:1, f:74.76 }, 79.24],['Ecuador', {v:1, f:74.28 }, 79.83],['Dominican Republic', {v:1, f:70.99 }, 77.38],['Algeria', {v:1, f:75.67 }, 78.13],['Lebanon', {v:1, f:77.14 }, 80.86],['Maldives', {v:1, f:77.52 }, 80.77],['Tunisia', {v:1, f:74.68 }, 78.72],['Suriname', {v:1, f:68.46 }, 75.06],['Jamaica', {v:1, f:72.86 }, 76.11],['Jordan', {v:1, f:72.83 }, 76.3],['Libya', {v:1, f:70.09 }, 75.95],['Uzbekistan', {v:1, f:69.59 }, 73.82],['Indonesia', {v:1, f:69.57 }, 73.96],['Philippines', {v:1, f:67.26 }, 75.5],['South Africa', {v:1, f:60.72 }, 67.67],['Egypt', {v:1, f:69.74 }, 74.35],[{v: 'VN', f: 'Viet Nam'}, {v:1, f:71.3 }, 79.52],['Gabon', {v:1, f:64.38 }, 68.66],['Iraq', {v:1, f:68.56 }, 72.65],['El Salvador', {v:1, f:68.45 }, 77.84],['Tajikistan', {v:1, f:68.93 }, 73.38],['Bhutan', {v:1, f:71.4 }, 72.17],['India', {v:1, f:68.46 }, 70.95],['Honduras', {v:1, f:72.96 }, 77.55],['Bangladesh', {v:1, f:70.87 }, 74.59],['Sao Tome and Principe', {v:1, f:67.98 }, 72.81],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, {v:1, f:66.14 }, 69.74],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, {v:1, f:56 }, 64.84],['Ghana', {v:1, f:62.99 }, 65.17],[{v: 'TL', f: 'Timor-Leste'}, {v:1, f:67.49 }, 71.63],['Nepal', {v:1, f:69.25 }, 72.2],['Kenya', {v:1, f:64.31 }, 69.04],['Cambodia', {v:1, f:67.53 }, 71.9],['Equatorial Guinea', {v:1, f:57.74 }, 59.91],['Zambia', {v:1, f:60.84 }, 66.89],['Myanmar', {v:1, f:64.04 }, 70.11],['Zimbabwe', {v:1, f:59.79 }, 62.89],[{v: 'SY', f: 'Syrian Arab Republic'}, {v:1, f:67.94 }, 78.1],['Cameroon', {v:1, f:58.02 }, 60.56],['Pakistan', {v:1, f:66.33 }, 68.28],['Papua New Guinea', {v:1, f:63.27 }, 65.82],['Benin', {v:1, f:60.2 }, 63.32],['Uganda', {v:1, f:61 }, 65.62],['Djibouti', {v:1, f:65.11 }, 69.35],['Afghanistan', {v:1, f:63.38 }, 66.38],['Haiti', {v:1, f:61.83 }, 66.18],['Yemen', {v:1, f:64.44 }, 67.82],['Eritrea', {v:1, f:64.15 }, 68.55],['Burundi', {v:1, f:59.76 }, 63.37],[{v: 'SS', f: 'South Sudan'}, {v:1, f:56.35 }, 59.38],['Niger', {v:1, f:61.28 }, 63.62],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, {v:1, f:68.61 }, 75.74],[{v: 'MC', f: 'Monaco'}, {v:null, f:null }, null],[{v: 'SM', f: 'San Marino'}, {v:null, f:null }, null],[{v: 'TV', f: 'Tuvalu'}, {v:null, f:null }, null]
 
-    <link rel="preconnect" href="https://fonts.googleapis.com"> 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+		];
+		var map3 = [
+          ['Country',   'Male SDG 4.3', 'Female SDG 4.3'],
+		  ['Norway', {v:1, f:17.41 }, 18.75],['Ireland', {v:1, f:18.62 }, 18.79],['Switzerland', {v:0, f:16.41 }, 16.23],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, {v:1, f:16.75 }, 17.14],['Australia', {v:1, f:21.48 }, 22.43],['Denmark', {v:1, f:18.25 }, 19.55],['Finland', {v:1, f:18.62 }, 20.2],['Singapore', {v:1, f:16.28 }, 16.65],['United Kingdom', {v:1, f:17.01 }, 17.98],['Belgium', {v:1, f:18.83 }, 20.72],['New Zealand', {v:1, f:17.91 }, 19.74],['Austria', {v:1, f:15.81 }, 16.38],['Japan', {v:0, f:15.27 }, 15.18],[{v: 'KR', f: 'Korea (Republic of)'}, {v:0, f:16.97 }, 15.91],['United Arab Emirates', {v:1, f:14.11 }, 14.81],['Saudi Arabia', {v:0, f:16.23 }, 16.01],['Bahrain', {v:1, f:16.09 }, 16.67],['Chile', {v:1, f:16.23 }, 16.67],['Qatar', {v:1, f:11.34 }, 14.09],['Argentina', {v:1, f:16.43 }, 18.9],[{v: 'BN', f: 'Brunei Darussalam'}, {v:1, f:13.88 }, 14.78],['Kazakhstan', {v:1, f:15.11 }, 15.77],[{v: 'RU', f: 'Russian Federation'}, {v:1, f:14.8 }, 15.25],['Uruguay', {v:1, f:15.14 }, 17.1],['Bulgaria', {v:1, f:14.2 }, 14.64],['Panama', {v:1, f:12.35 }, 13.46],['Barbados', {v:1, f:13.98 }, 16.8],['Oman', {v:1, f:13.7 }, 14.97],['Georgia', {v:1, f:15.04 }, 15.53],['Costa Rica', {v:1, f:15.41 }, 16.4],['Malaysia', {v:1, f:13.33 }, 14.03],['Kuwait', {v:1, f:13.24 }, 15.24],['Serbia', {v:1, f:14.22 }, 15.27],['Mauritius', {v:1, f:14.41 }, 15.71],['Cuba', {v:1, f:13.87 }, 14.7],['Sri Lanka', {v:1, f:13.76 }, 14.46],['Bosnia and Herzegovina', {v:1, f:13.52 }, 14.07],['Grenada', {v:1, f:16.23 }, 16.98],['Mexico', {v:1, f:14.57 }, 15.04],['Ukraine', {v:1, f:14.86 }, 15.28],['Peru', {v:0, f:15.08 }, 14.89],['Thailand', {v:1, f:14.66 }, 15.8],['Armenia', {v:1, f:12.58 }, 13.6],['Colombia', {v:1, f:14.13 }, 14.66],['Brazil', {v:1, f:15.06 }, 15.76],['China', {v:0, f:14 }, 13.95],['Ecuador', {v:1, f:14.3 }, 14.89],['Dominican Republic', {v:1, f:13.45 }, 14.98],['Algeria', {v:1, f:14.36 }, 14.84],['Lebanon', {v:0, f:11.45 }, 11.11],['Maldives', {v:1, f:12.12 }, 12.27],['Tunisia', {v:1, f:14.28 }, 15.82],['Suriname', {v:1, f:12.48 }, 13.79],['Jamaica', {v:1, f:12.37 }, 13.9],['Jordan', {v:1, f:11.12 }, 11.63],['Libya', {v:1, f:12.64 }, 13.06],['Uzbekistan', {v:0, f:12.24 }, 11.86],['Indonesia', {v:1, f:13.54 }, 13.67],['Philippines', {v:1, f:12.81 }, 13.49],['South Africa', {v:1, f:13.41 }, 14.17],['Egypt', {v:0, f:13.33 }, 13.31],[{v: 'VN', f: 'Viet Nam'}, {v:1, f:12.51 }, 12.87],['Gabon', {v:0, f:13.36 }, 12.59],['Iraq', {v:0, f:12.18 }, 10.35],['El Salvador', {v:0, f:11.69 }, 11.51],['Tajikistan', {v:0, f:12.59 }, 10.72],['Bhutan', {v:1, f:12.75 }, 13.46],['India', {v:1, f:11.73 }, 12.63],['Honduras', {v:1, f:9.64 }, 10.49],['Bangladesh', {v:1, f:11.23 }, 11.97],['Sao Tome and Principe', {v:1, f:12.57 }, 12.79],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, {v:0, f:11.29 }, 10.67],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, {v:0, f:11.88 }, 11.8],['Ghana', {v:0, f:11.58 }, 11.37],[{v: 'TL', f: 'Timor-Leste'}, {v:0, f:13.02 }, 12.2],['Nepal', {v:1, f:12.55 }, 12.95],['Kenya', {v:0, f:11.71 }, 10.96],['Cambodia', {v:0, f:11.93 }, 11],['Equatorial Guinea', {v:null, f:null }, null],['Zambia', {v:0, f:11.6 }, 10.68],['Myanmar', {v:1, f:10.46 }, 10.86],['Zimbabwe', {v:0, f:11.48 }, 10.45],[{v: 'SY', f: 'Syrian Arab Republic'}, {v:1, f:8.8 }, 8.89],['Cameroon', {v:0, f:12.86 }, 11.33],['Pakistan', {v:0, f:8.92 }, 7.57],['Papua New Guinea', {v:null, f:null }, null],['Benin', {v:0, f:13.76 }, 11.44],['Uganda', {v:0, f:12.23 }, 10.59],['Djibouti', {v:0, f:6.87 }, 6.7],['Afghanistan', {v:0, f:12.52 }, 7.71],['Haiti', {v:0, f:10.39 }, 9],['Yemen', {v:0, f:10.24 }, 7.36],['Eritrea', {v:0, f:5.43 }, 4.57],['Burundi', {v:0, f:11.1 }, 11.03],[{v: 'SS', f: 'South Sudan'}, {v:0, f:5.88 }, 3.54],['Niger', {v:0, f:7.17 }, 5.73],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, {v:0, f:11.14 }, 10.42],[{v: 'MC', f: 'Monaco'}, {v:null, f:null }, null],[{v: 'SM', f: 'San Marino'}, {v:0, f:13.26 }, 12.82],[{v: 'TV', f: 'Tuvalu'}, {v:null, f:null }, null]
 
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
-        .menu { grid-area: menu; }
-        .main { grid-area: main; }
-        .description-container { grid-area: description-container; }
+		];
+		var map4 = [
+          ['Country',   'Male SDG 4.4', 'Female SDG 4.4'],
+		  ['Norway', {v:1, f:12.81 }, 12.97],['Ireland', {v:1, f:12.42 }, 12.89],['Switzerland', {v:0, f:13.55 }, 12.66],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, {v:0, f:12.74 }, 11.9],['Australia', {v:1, f:12.65 }, 12.79],['Denmark', {v:1, f:12.39 }, 12.83],['Finland', {v:1, f:12.64 }, 12.99],['Singapore', {v:0, f:12.11 }, 11.17],['United Kingdom', {v:1, f:13.24 }, 13.24],['Belgium', {v:0, f:12.17 }, 11.93],['New Zealand', {v:0, f:12.85 }, 12.71],['Austria', {v:0, f:12.87 }, 12.23],['Japan', {v:1, f:12.63 }, 13.06],[{v: 'KR', f: 'Korea (Republic of)'}, {v:0, f:12.87 }, 11.42],['United Arab Emirates', {v:0, f:12.42 }, 11.67],['Saudi Arabia', {v:0, f:10.52 }, 9.75],['Bahrain', {v:0, f:9.72 }, 9.08],['Chile', {v:0, f:10.71 }, 10.47],['Qatar', {v:1, f:9.36 }, 11.28],['Argentina', {v:1, f:10.72 }, 11.12],[{v: 'BN', f: 'Brunei Darussalam'}, {v:0, f:9.16 }, 9.13],['Kazakhstan', {v:0, f:11.92 }, 10.85],[{v: 'RU', f: 'Russian Federation'}, {v:0, f:12.07 }, 11.91],['Uruguay', {v:1, f:8.62 }, 9.19],['Bulgaria', {v:1, f:11.23 }, 11.46],['Panama', {v:1, f:9.96 }, 11.17],['Barbados', {v:1, f:10.33 }, 10.96],['Oman', {v:1, f:9.37 }, 10.64],['Georgia', {v:1, f:13.09 }, 13.16],['Costa Rica', {v:1, f:8.61 }, 8.85],['Malaysia', {v:0, f:10.47 }, 10.27],['Kuwait', {v:1, f:6.83 }, 7.97],['Serbia', {v:0, f:11.63 }, 10.79],['Mauritius', {v:0, f:9.67 }, 9.42],['Cuba', {v:0, f:11.79 }, 11.24],['Sri Lanka', {v:0, f:10.64 }, 10.62],['Bosnia and Herzegovina', {v:0, f:10.85 }, 8.85],['Grenada', {v:null, f:null }, null],['Mexico', {v:0, f:8.94 }, 8.58],['Ukraine', {v:0, f:11.34 }, 11.33],['Peru', {v:0, f:10.25 }, 9.14],['Thailand', {v:0, f:8.19 }, 7.7],['Armenia', {v:0, f:11.3 }, 11.29],['Colombia', {v:1, f:8.3 }, 8.62],['Brazil', {v:1, f:7.74 }, 8.18],['China', {v:0, f:8.39 }, 7.7],['Ecuador', {v:0, f:8.85 }, 8.73],['Dominican Republic', {v:1, f:8.31 }, 8.84],['Algeria', {v:0, f:8.27 }, 7.69],['Lebanon', {v:0, f:8.91 }, 8.48],['Maldives', {v:1, f:7.01 }, 7.02],['Tunisia', {v:0, f:7.99 }, 6.47],['Suriname', {v:1, f:9.12 }, 9.38],['Jamaica', {v:1, f:9.28 }, 10.15],['Jordan', {v:0, f:10.72 }, 10.31],['Libya', {v:1, f:7.21 }, 8.47],['Uzbekistan', {v:0, f:12 }, 11.61],['Indonesia', {v:0, f:8.57 }, 7.76],['Philippines', {v:1, f:9.21 }, 9.56],['South Africa', {v:0, f:10.29 }, 10.03],['Egypt', {v:0, f:8.08 }, 6.78],[{v: 'VN', f: 'Viet Nam'}, {v:0, f:8.63 }, 8.01],['Gabon', {v:0, f:9.63 }, 7.76],['Iraq', {v:0, f:8.63 }, 5.99],['El Salvador', {v:0, f:7.3 }, 6.62],['Tajikistan', {v:0, f:11.26 }, 10.21],['Bhutan', {v:0, f:4.79 }, 3.25],['India', {v:0, f:8.71 }, 5.4],['Honduras', {v:1, f:6.51 }, 6.58],['Bangladesh', {v:0, f:6.94 }, 5.66],['Sao Tome and Principe', {v:0, f:7.14 }, 5.75],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, {v:0, f:5.72 }, 4.87],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, {v:0, f:7.15 }, 6.33],['Ghana', {v:0, f:8.09 }, 6.58],[{v: 'TL', f: 'Timor-Leste'}, {v:0, f:5.62 }, 3.77],['Nepal', {v:0, f:5.76 }, 4.34],['Kenya', {v:0, f:7.19 }, 5.95],['Cambodia', {v:0, f:5.78 }, 4.23],['Equatorial Guinea', {v:0, f:7.62 }, 4.19],['Zambia', {v:0, f:8.17 }, 6.28],['Myanmar', {v:1, f:4.86 }, 5.04],['Zimbabwe', {v:0, f:8.92 }, 8.06],[{v: 'SY', f: 'Syrian Arab Republic'}, {v:0, f:5.6 }, 4.62],['Cameroon', {v:0, f:8.02 }, 4.72],['Pakistan', {v:0, f:6.25 }, 3.83],['Papua New Guinea', {v:0, f:5.33 }, 3.96],['Benin', {v:0, f:5.5 }, 2.4],['Uganda', {v:0, f:7.62 }, 4.9],['Djibouti', {v:null, f:null }, null],['Afghanistan', {v:0, f:6 }, 1.94],['Haiti', {v:0, f:6.59 }, 4.28],['Yemen', {v:0, f:5.14 }, 2.88],['Eritrea', {v:null, f:null }, null],['Burundi', {v:0, f:4.05 }, 2.6],[{v: 'SS', f: 'South Sudan'}, {v:0, f:5.2 }, 3.93],['Niger', {v:0, f:2.81 }, 1.39],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, {v:null, f:null }, null],[{v: 'MC', f: 'Monaco'}, {v:null, f:null }, null],[{v: 'SM', f: 'San Marino'}, {v:null, f:null }, null],[{v: 'TV', f: 'Tuvalu'}, {v:null, f:null }, null]
 
-        .container {
-          background-color: rgba(255, 255, 255, 0.8);
-          text-align: center;
-          padding: 20px 0;
-          font-size: 30px;
-        }
+		];
+		var map5 = [
+          ['Country',   'Male SDG 8.5 ($)', 'Female SDG 8.5 ($)'],
+		  ['Norway', {v:0, f:74279.89 }, 58548.43],['Ireland', {v:0, f:81400.5 }, 55540.14],['Switzerland', {v:0, f:81136.6 }, 57840.35],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, {v:0, f:82992.88 }, 45960.59],['Australia', {v:0, f:56953.61 }, 39286.57],['Denmark', {v:0, f:68133.62 }, 49296.29],['Finland', {v:0, f:56485.02 }, 40758.75],['Singapore', {v:0, f:103421.38 }, 71387.27],['United Kingdom', {v:0, f:59134.68 }, 33322.81],['Belgium', {v:0, f:62427.38 }, 41948.31],['New Zealand', {v:0, f:50692.96 }, 31232.96],['Austria', {v:0, f:73527.75 }, 39385.87],['Japan', {v:0, f:55869.37 }, 30583.92],[{v: 'KR', f: 'Korea (Republic of)'}, {v:0, f:58309.27 }, 27734.21],['United Arab Emirates', {v:0, f:84722.52 }, 28577.65],['Saudi Arabia', {v:0, f:70180.91 }, 16511.71],['Bahrain', {v:0, f:55564.6 }, 19059.24],['Chile', {v:0, f:30321.88 }, 16397.96],['Qatar', {v:0, f:107833.02 }, 45338.14],['Argentina', {v:0, f:27825.75 }, 14872.16],[{v: 'BN', f: 'Brunei Darussalam'}, {v:0, f:72834.57 }, 54385.93],['Kazakhstan', {v:0, f:29295.81 }, 16791.13],[{v: 'RU', f: 'Russian Federation'}, {v:0, f:33639.83 }, 19693.99],['Uruguay', {v:0, f:25008.27 }, 15444.87],['Bulgaria', {v:0, f:28482.73 }, 18453.14],['Panama', {v:0, f:35049 }, 24049.68],['Barbados', {v:0, f:17370.23 }, 12655.9],['Oman', {v:0, f:35201.07 }, 7959.23],['Georgia', {v:0, f:19863.7 }, 9475.46],['Costa Rica', {v:0, f:23501.39 }, 13476.27],['Malaysia', {v:0, f:33877.3 }, 20824.62],['Kuwait', {v:0, f:75839.64 }, 31697.75],['Serbia', {v:0, f:20525.48 }, 13989.97],['Mauritius', {v:0, f:34898 }, 15870.12],['Cuba', {v:0, f:11567.29 }, 5714.23],['Sri Lanka', {v:0, f:18423.27 }, 7433.1],['Bosnia and Herzegovina', {v:0, f:19356.56 }, 10566.53],['Grenada', {v:null, f:null }, null],['Mexico', {v:0, f:25838.4 }, 12765],['Ukraine', {v:0, f:16839.98 }, 10088.44],['Peru', {v:0, f:14646.96 }, 9888.94],['Thailand', {v:0, f:19737.43 }, 15924.39],['Armenia', {v:0, f:18574 }, 9737.42],['Colombia', {v:0, f:17018.04 }, 11593.68],['Brazil', {v:0, f:18119.94 }, 10534.7],['China', {v:0, f:19307.7 }, 12632.66],['Ecuador', {v:0, f:14210.94 }, 7874.34],['Dominican Republic', {v:0, f:22739.55 }, 12448.85],['Algeria', {v:0, f:18890.7 }, 3295.54],['Lebanon', {v:0, f:23124.19 }, 6078.49],['Maldives', {v:0, f:22931.11 }, 7907.65],['Tunisia', {v:0, f:16340.58 }, 4586.8],['Suriname', {v:0, f:19092.98 }, 9503.86],['Jamaica', {v:0, f:11163.32 }, 7500.82],['Jordan', {v:0, f:16233.91 }, 3323.64],['Libya', {v:0, f:21998.62 }, 9249.28],['Uzbekistan', {v:0, f:9230.2 }, 5063.99],['Indonesia', {v:0, f:14966.48 }, 7901.74],['Philippines', {v:0, f:11694.19 }, 7843.03],['South Africa', {v:0, f:15094.54 }, 9247.75],['Egypt', {v:0, f:18039.47 }, 4752.9],[{v: 'VN', f: 'Viet Nam'}, {v:0, f:8223.72 }, 6644.29],['Gabon', {v:0, f:17790.66 }, 9924.83],['Iraq', {v:0, f:18975.23 }, 2426.97],['El Salvador', {v:0, f:10500.93 }, 6471.33],['Tajikistan', {v:0, f:6427.24 }, 1439.88],['Bhutan', {v:0, f:13069.45 }, 8117.42],['India', {v:0, f:10702.27 }, 2330.54],['Honduras', {v:0, f:6446.06 }, 4172.73],['Bangladesh', {v:0, f:7030.6 }, 2873.33],['Sao Tome and Principe', {v:0, f:5439.38 }, 2462.34],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, {v:0, f:9012.95 }, 5800.89],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, {v:0, f:8863.2 }, 7011.29],['Ghana', {v:0, f:6432.38 }, 4073.32],[{v: 'TL', f: 'Timor-Leste'}, {v:1, f:4395.42 }, 4486.46],['Nepal', {v:0, f:4108.39 }, 2910.33],['Kenya', {v:0, f:4829.01 }, 3665.52],['Cambodia', {v:0, f:4822.15 }, 3696.94],['Equatorial Guinea', {v:0, f:17135.13 }, 9949.42],['Zambia', {v:1, f:3270.42 }, 3379.54],['Myanmar', {v:0, f:6881.05 }, 3174.16],['Zimbabwe', {v:0, f:2984.89 }, 2374.61],[{v: 'SY', f: 'Syrian Arab Republic'}, {v:0, f:6225.49 }, 988.65],['Cameroon', {v:0, f:4189.01 }, 2972.62],['Pakistan', {v:0, f:8412.34 }, 1392.54],['Papua New Guinea', {v:0, f:4813.58 }, 3766.67],['Benin', {v:0, f:3672.96 }, 2836.84],['Uganda', {v:0, f:2671.29 }, 1591.22],['Djibouti', {v:0, f:7076.5 }, 4150.92],['Afghanistan', {v:0, f:3565.86 }, 819.38],['Haiti', {v:0, f:2015.73 }, 1409.83],['Yemen', {v:0, f:2980.03 }, 186.04],['Eritrea', {v:0, f:3309.36 }, 2275.14],['Burundi', {v:1, f:640.1 }, 865.89],[{v: 'SS', f: 'South Sudan'}, {v:0, f:2247.39 }, 1758.75],['Niger', {v:0, f:1859.11 }, 535.96],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, {v:null, f:null }, null],[{v: 'MC', f: 'Monaco'}, {v:null, f:null }, null],[{v: 'SM', f: 'San Marino'}, {v:null, f:null }, null],[{v: 'TV', f: 'Tuvalu'}, {v:null, f:null }, null]
 
-        .grid-container {
-          display: grid;
-          grid-template-areas:
-            'menu main main main main description-container';
-          grid-gap: 10px;
-          padding: 10px;
-        }
+		];
+		var map1M = [
+          ['Country',   'SDG 3 Male'],
+		  ['Norway', 0.958],['Ireland', 0.961],['Switzerland', 0.965],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, 0.959],['Australia', 0.954],['Denmark', 0.947],['Finland', 0.941],['Singapore', 0.944],['United Kingdom', 0.944],['Belgium', 0.942],['New Zealand', 0.945],['Austria', 0.936],['Japan', 0.926],[{v: 'KR', f: 'Korea (Republic of)'}, 0.94],['United Arab Emirates', 0.905],['Saudi Arabia', 0.883],['Bahrain', 0.873],['Chile', 0.864],['Qatar', 0.841],['Argentina', 0.84],[{v: 'BN', f: 'Brunei Darussalam'}, 0.846],['Kazakhstan', 0.823],[{v: 'RU', f: 'Russian Federation'}, 0.817],['Uruguay', 0.801],['Bulgaria', 0.817],['Panama', 0.81],['Barbados', 0.809],['Oman', 0.821],['Georgia', 0.816],['Costa Rica', 0.817],['Malaysia', 0.82],['Kuwait', 0.806],['Serbia', 0.815],['Mauritius', 0.81],['Cuba', 0.799],['Sri Lanka', 0.794],['Bosnia and Herzegovina', 0.803],['Grenada', null],['Mexico', 0.791],['Ukraine', 0.776],['Peru', 0.793],['Thailand', 0.776],['Armenia', 0.78],['Colombia', 0.769],['Brazil', 0.764],['China', 0.776],['Ecuador', 0.767],['Dominican Republic', 0.76],['Algeria', 0.781],['Lebanon', 0.774],['Maldives', 0.756],['Tunisia', 0.765],['Suriname', 0.739],['Jamaica', 0.734],['Jordan', 0.758],['Libya', 0.73],['Uzbekistan', 0.74],['Indonesia', 0.737],['Philippines', 0.714],['South Africa', 0.711],['Egypt', 0.739],[{v: 'VN', f: 'Viet Nam'}, 0.704],['Gabon', 0.731],['Iraq', 0.73],['El Salvador', 0.679],['Tajikistan', 0.711],['Bhutan', 0.679],['India', 0.698],['Honduras', 0.638],['Bangladesh', 0.659],['Sao Tome and Principe', 0.65],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, 0.635],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, 0.611],['Ghana', 0.638],[{v: 'TL', f: 'Timor-Leste'}, 0.622],['Nepal', 0.623],['Kenya', 0.62],['Cambodia', 0.618],['Equatorial Guinea', null],['Zambia', 0.593],['Myanmar', 0.591],['Zimbabwe', 0.59],[{v: 'SY', f: 'Syrian Arab Republic'}, 0.593],['Cameroon', 0.603],['Pakistan', 0.612],['Papua New Guinea', null],['Benin', 0.587],['Uganda', 0.582],['Djibouti', null],['Afghanistan', 0.593],['Haiti', 0.539],['Yemen', 0.552],['Eritrea', null],['Burundi', 0.432],[{v: 'SS', f: 'South Sudan'}, 0.455],['Niger', 0.443],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, null],[{v: 'MC', f: 'Monaco'}, null],[{v: 'SM', f: 'San Marino'}, null],[{v: 'TV', f: 'Tuvalu'}, null]
 
-        .grid-container > div {
-          background-color: rgba(255, 255, 255, 0.8);
-          text-align: center;
-          padding: 20px 0;
-          font-size: 30px;
-        }
+		];
+		var map1F = [
+          ['Country',   'SDG 3 Female'],
+		  ['Norway', 0.948],['Ireland', 0.943],['Switzerland', 0.933],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, 0.932],['Australia', 0.931],['Denmark', 0.931],['Finland', 0.932],['Singapore', 0.93],['United Kingdom', 0.915],['Belgium', 0.917],['New Zealand', 0.911],['Austria', 0.902],['Japan', 0.905],[{v: 'KR', f: 'Korea (Republic of)'}, 0.88],['United Arab Emirates', 0.842],['Saudi Arabia', 0.791],['Bahrain', 0.805],['Chile', 0.832],['Qatar', 0.865],['Argentina', 0.834],[{v: 'BN', f: 'Brunei Darussalam'}, 0.829],['Kazakhstan', 0.807],[{v: 'RU', f: 'Russian Federation'}, 0.822],['Uruguay', 0.814],['Bulgaria', 0.813],['Panama', 0.826],['Barbados', 0.815],['Oman', 0.768],['Georgia', 0.8],['Costa Rica', 0.802],['Malaysia', 0.797],['Kuwait', 0.793],['Serbia', 0.796],['Mauritius', 0.79],['Cuba', 0.754],['Sri Lanka', 0.758],['Bosnia and Herzegovina', 0.752],['Grenada', null],['Mexico', 0.76],['Ukraine', 0.776],['Peru', 0.759],['Thailand', 0.782],['Armenia', 0.766],['Colombia', 0.761],['Brazil', 0.759],['China', 0.743],['Ecuador', 0.742],['Dominican Republic', 0.759],['Algeria', 0.671],['Lebanon', 0.69],['Maldives', 0.698],['Tunisia', 0.689],['Suriname', 0.728],['Jamaica', 0.73],['Jordan', 0.663],['Libya', 0.713],['Uzbekistan', 0.694],['Indonesia', 0.693],['Philippines', 0.719],['South Africa', 0.702],['Egypt', 0.652],[{v: 'VN', f: 'Viet Nam'}, 0.703],['Gabon', 0.669],['Iraq', 0.565],['El Salvador', 0.661],['Tajikistan', 0.586],['Bhutan', 0.625],['India', 0.573],['Honduras', 0.624],['Bangladesh', 0.596],['Sao Tome and Principe', 0.589],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, 0.589],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, 0.608],['Ghana', 0.581],[{v: 'TL', f: 'Timor-Leste'}, 0.586],['Nepal', 0.581],['Kenya', 0.58],['Cambodia', 0.569],['Equatorial Guinea', null],['Zambia', 0.568],['Myanmar', 0.564],['Zimbabwe', 0.549],[{v: 'SY', f: 'Syrian Arab Republic'}, 0.491],['Cameroon', 0.521],['Pakistan', 0.455],['Papua New Guinea', null],['Benin', 0.501],['Uganda', 0.502],['Djibouti', null],['Afghanistan', 0.391],['Haiti', 0.472],['Yemen', 0.269],['Eritrea', null],['Burundi', 0.432],[{v: 'SS', f: 'South Sudan'}, 0.383],['Niger', 0.32],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, null],[{v: 'MC', f: 'Monaco'}, null],[{v: 'SM', f: 'San Marino'}, null],[{v: 'TV', f: 'Tuvalu'}, null]
 
-        .button {
-            margin-top: 5px;
-            margin-bottom: 5px;
-            margin-left: 20px;
-            margin-right: 20px;
-        }
-    </style>
-    
-    <!-- Load d3.js -->
-    <script src="https://d3js.org/d3.v4.js"></script>
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+		];
+		var map2M = [
+          ['Country',   'SDG 4.3 Male'],
+		  ['Norway', 80.44],['Ireland', 80.66],['Switzerland', 81.87],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, 81.97],['Australia', 81.49],['Denmark', 78.94],['Finland', 79.09],['Singapore', 81.52],['United Kingdom', 79.61],['Belgium', 79.32],['New Zealand', 80.57],['Austria', 79.16],['Japan', 81.49],[{v: 'KR', f: 'Korea (Republic of)'}, 79.93],['United Arab Emirates', 77.29],['Saudi Arabia', 73.93],['Bahrain', 76.43],['Chile', 77.77],['Qatar', 79.14],['Argentina', 73.24],[{v: 'BN', f: 'Brunei Darussalam'}, 74.72],['Kazakhstan', 69.23],[{v: 'RU', f: 'Russian Federation'}, 67.14],['Uruguay', 74.11],['Bulgaria', 71.55],['Panama', 75.42],['Barbados', 77.81],['Oman', 76.12],['Georgia', 69.34],['Costa Rica', 77.73],['Malaysia', 74.23],['Kuwait', 74.76],['Serbia', 73.4],['Mauritius', 71.65],['Cuba', 76.84],['Sri Lanka', 73.59],['Bosnia and Herzegovina', 74.89],['Grenada', 70.07],['Mexico', 72.2],['Ukraine', 67.09],['Peru', 74.06],['Thailand', 73.46],['Armenia', 71.32],['Colombia', 74.52],['Brazil', 72.24],['China', 74.76],['Ecuador', 74.28],['Dominican Republic', 70.99],['Algeria', 75.67],['Lebanon', 77.14],['Maldives', 77.52],['Tunisia', 74.68],['Suriname', 68.46],['Jamaica', 72.86],['Jordan', 72.83],['Libya', 70.09],['Uzbekistan', 69.59],['Indonesia', 69.57],['Philippines', 67.26],['South Africa', 60.72],['Egypt', 69.74],[{v: 'VN', f: 'Viet Nam'}, 71.3],['Gabon', 64.38],['Iraq', 68.56],['El Salvador', 68.45],['Tajikistan', 68.93],['Bhutan', 71.4],['India', 68.46],['Honduras', 72.96],['Bangladesh', 70.87],['Sao Tome and Principe', 67.98],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, 66.14],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, 56],['Ghana', 62.99],[{v: 'TL', f: 'Timor-Leste'}, 67.49],['Nepal', 69.25],['Kenya', 64.31],['Cambodia', 67.53],['Equatorial Guinea', 57.74],['Zambia', 60.84],['Myanmar', 64.04],['Zimbabwe', 59.79],[{v: 'SY', f: 'Syrian Arab Republic'}, 67.94],['Cameroon', 58.02],['Pakistan', 66.33],['Papua New Guinea', 63.27],['Benin', 60.2],['Uganda', 61],['Djibouti', 65.11],['Afghanistan', 63.38],['Haiti', 61.83],['Yemen', 64.44],['Eritrea', 64.15],['Burundi', 59.76],[{v: 'SS', f: 'South Sudan'}, 56.35],['Niger', 61.28],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, 68.61],[{v: 'MC', f: 'Monaco'}, null],[{v: 'SM', f: 'San Marino'}, null],[{v: 'TV', f: 'Tuvalu'}, null]
 
-</head>
+		];
+		var map2F = [
+          ['Country',   'SDG 4.3 Female'],
+		  ['Norway', 84.37],['Ireland', 83.9],['Switzerland', 85.59],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, 87.74],['Australia', 85.4],['Denmark', 82.86],['Finland', 84.71],['Singapore', 85.72],['United Kingdom', 82.99],['Belgium', 83.88],['New Zealand', 83.98],['Austria', 83.86],['Japan', 87.66],[{v: 'KR', f: 'Korea (Republic of)'}, 85.95],['United Arab Emirates', 79.31],['Saudi Arabia', 76.75],['Bahrain', 78.42],['Chile', 82.44],['Qatar', 82.01],['Argentina', 79.99],[{v: 'BN', f: 'Brunei Darussalam'}, 77.1],['Kazakhstan', 77.66],[{v: 'RU', f: 'Russian Federation'}, 77.78],['Uruguay', 81.47],['Bulgaria', 78.66],['Panama', 81.75],['Barbados', 80.48],['Oman', 80.34],['Georgia', 78.14],['Costa Rica', 82.89],['Malaysia', 78.31],['Kuwait', 76.58],['Serbia', 78.61],['Mauritius', 78.45],['Cuba', 80.77],['Sri Lanka', 80.26],['Bosnia and Herzegovina', 79.85],['Grenada', 74.95],['Mexico', 77.87],['Ukraine', 76.84],['Peru', 79.5],['Thailand', 80.9],['Armenia', 78.51],['Colombia', 80.01],['Brazil', 79.55],['China', 79.24],['Ecuador', 79.83],['Dominican Republic', 77.38],['Algeria', 78.13],['Lebanon', 80.86],['Maldives', 80.77],['Tunisia', 78.72],['Suriname', 75.06],['Jamaica', 76.11],['Jordan', 76.3],['Libya', 75.95],['Uzbekistan', 73.82],['Indonesia', 73.96],['Philippines', 75.5],['South Africa', 67.67],['Egypt', 74.35],[{v: 'VN', f: 'Viet Nam'}, 79.52],['Gabon', 68.66],['Iraq', 72.65],['El Salvador', 77.84],['Tajikistan', 73.38],['Bhutan', 72.17],['India', 70.95],['Honduras', 77.55],['Bangladesh', 74.59],['Sao Tome and Principe', 72.81],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, 69.74],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, 64.84],['Ghana', 65.17],[{v: 'TL', f: 'Timor-Leste'}, 71.63],['Nepal', 72.2],['Kenya', 69.04],['Cambodia', 71.9],['Equatorial Guinea', 59.91],['Zambia', 66.89],['Myanmar', 70.11],['Zimbabwe', 62.89],[{v: 'SY', f: 'Syrian Arab Republic'}, 78.1],['Cameroon', 60.56],['Pakistan', 68.28],['Papua New Guinea', 65.82],['Benin', 63.32],['Uganda', 65.62],['Djibouti', 69.35],['Afghanistan', 66.38],['Haiti', 66.18],['Yemen', 67.82],['Eritrea', 68.55],['Burundi', 63.37],[{v: 'SS', f: 'South Sudan'}, 59.38],['Niger', 63.62],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, 75.74],[{v: 'MC', f: 'Monaco'}, null],[{v: 'SM', f: 'San Marino'}, null],[{v: 'TV', f: 'Tuvalu'}, null]
 
-<body>
-    <div class="container">
-        <div>
-            <h1>Gender Development Index Year 2019</h1>
-        </div>
-        <div class="grid-container">
+		];
+		var map3M = [
+          ['Country',   'SDG 4.4 Male'],
+		  ['Norway', 17.41],['Ireland', 18.62],['Switzerland', 16.41],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, 16.75],['Australia', 21.48],['Denmark', 18.25],['Finland', 18.62],['Singapore', 16.28],['United Kingdom', 17.01],['Belgium', 18.83],['New Zealand', 17.91],['Austria', 15.81],['Japan', 15.27],[{v: 'KR', f: 'Korea (Republic of)'}, 16.97],['United Arab Emirates', 14.11],['Saudi Arabia', 16.23],['Bahrain', 16.09],['Chile', 16.23],['Qatar', 11.34],['Argentina', 16.43],[{v: 'BN', f: 'Brunei Darussalam'}, 13.88],['Kazakhstan', 15.11],[{v: 'RU', f: 'Russian Federation'}, 14.8],['Uruguay', 15.14],['Bulgaria', 14.2],['Panama', 12.35],['Barbados', 13.98],['Oman', 13.7],['Georgia', 15.04],['Costa Rica', 15.41],['Malaysia', 13.33],['Kuwait', 13.24],['Serbia', 14.22],['Mauritius', 14.41],['Cuba', 13.87],['Sri Lanka', 13.76],['Bosnia and Herzegovina', 13.52],['Grenada', 16.23],['Mexico', 14.57],['Ukraine', 14.86],['Peru', 15.08],['Thailand', 14.66],['Armenia', 12.58],['Colombia', 14.13],['Brazil', 15.06],['China', 14],['Ecuador', 14.3],['Dominican Republic', 13.45],['Algeria', 14.36],['Lebanon', 11.45],['Maldives', 12.12],['Tunisia', 14.28],['Suriname', 12.48],['Jamaica', 12.37],['Jordan', 11.12],['Libya', 12.64],['Uzbekistan', 12.24],['Indonesia', 13.54],['Philippines', 12.81],['South Africa', 13.41],['Egypt', 13.33],[{v: 'VN', f: 'Viet Nam'}, 12.51],['Gabon', 13.36],['Iraq', 12.18],['El Salvador', 11.69],['Tajikistan', 12.59],['Bhutan', 12.75],['India', 11.73],['Honduras', 9.64],['Bangladesh', 11.23],['Sao Tome and Principe', 12.57],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, 11.29],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, 11.88],['Ghana', 11.58],[{v: 'TL', f: 'Timor-Leste'}, 13.02],['Nepal', 12.55],['Kenya', 11.71],['Cambodia', 11.93],['Equatorial Guinea', null],['Zambia', 11.6],['Myanmar', 10.46],['Zimbabwe', 11.48],[{v: 'SY', f: 'Syrian Arab Republic'}, 8.8],['Cameroon', 12.86],['Pakistan', 8.92],['Papua New Guinea', null],['Benin', 13.76],['Uganda', 12.23],['Djibouti', 6.87],['Afghanistan', 12.52],['Haiti', 10.39],['Yemen', 10.24],['Eritrea', 5.43],['Burundi', 11.1],[{v: 'SS', f: 'South Sudan'}, 5.88],['Niger', 7.17],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, 11.14],[{v: 'MC', f: 'Monaco'}, null],[{v: 'SM', f: 'San Marino'}, 13.26],[{v: 'TV', f: 'Tuvalu'}, null]
 
-            <div class="menu">
-                <button id="btn_gdi" class="button" onclick="clickGdi()">Gender Development Index</button><br/>
-                <button id="btn_hdi" class="button" onclick="clickHdi()">Human Development Index</button><br/>
-                <button id="btn_sdg3" class="button" onclick="clickSdg3()">Life Expectancy at Birth</button><br/>
-                <button id="btn_sdg43" class="button" onclick="clickSdg43()">Expected Years of Schooling</button><br/>
-                <button id="btn_sdg44" class="button" onclick="clickSdg44()">Mean Years of Schooling</button><br/>
-                <button id="btn_sdg85" class="button" onclick="clickSdg85()">Estimated Gross National Income per Capita</button><br/>
-            </div>
+		];
+		var map3F = [
+          ['Country',   'SDG 4.4 Female'],
+		  ['Norway', 18.75],['Ireland', 18.79],['Switzerland', 16.23],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, 17.14],['Australia', 22.43],['Denmark', 19.55],['Finland', 20.2],['Singapore', 16.65],['United Kingdom', 17.98],['Belgium', 20.72],['New Zealand', 19.74],['Austria', 16.38],['Japan', 15.18],[{v: 'KR', f: 'Korea (Republic of)'}, 15.91],['United Arab Emirates', 14.81],['Saudi Arabia', 16.01],['Bahrain', 16.67],['Chile', 16.67],['Qatar', 14.09],['Argentina', 18.9],[{v: 'BN', f: 'Brunei Darussalam'}, 14.78],['Kazakhstan', 15.77],[{v: 'RU', f: 'Russian Federation'}, 15.25],['Uruguay', 17.1],['Bulgaria', 14.64],['Panama', 13.46],['Barbados', 16.8],['Oman', 14.97],['Georgia', 15.53],['Costa Rica', 16.4],['Malaysia', 14.03],['Kuwait', 15.24],['Serbia', 15.27],['Mauritius', 15.71],['Cuba', 14.7],['Sri Lanka', 14.46],['Bosnia and Herzegovina', 14.07],['Grenada', 16.98],['Mexico', 15.04],['Ukraine', 15.28],['Peru', 14.89],['Thailand', 15.8],['Armenia', 13.6],['Colombia', 14.66],['Brazil', 15.76],['China', 13.95],['Ecuador', 14.89],['Dominican Republic', 14.98],['Algeria', 14.84],['Lebanon', 11.11],['Maldives', 12.27],['Tunisia', 15.82],['Suriname', 13.79],['Jamaica', 13.9],['Jordan', 11.63],['Libya', 13.06],['Uzbekistan', 11.86],['Indonesia', 13.67],['Philippines', 13.49],['South Africa', 14.17],['Egypt', 13.31],[{v: 'VN', f: 'Viet Nam'}, 12.87],['Gabon', 12.59],['Iraq', 10.35],['El Salvador', 11.51],['Tajikistan', 10.72],['Bhutan', 13.46],['India', 12.63],['Honduras', 10.49],['Bangladesh', 11.97],['Sao Tome and Principe', 12.79],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, 10.67],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, 11.8],['Ghana', 11.37],[{v: 'TL', f: 'Timor-Leste'}, 12.2],['Nepal', 12.95],['Kenya', 10.96],['Cambodia', 11],['Equatorial Guinea', null],['Zambia', 10.68],['Myanmar', 10.86],['Zimbabwe', 10.45],[{v: 'SY', f: 'Syrian Arab Republic'}, 8.89],['Cameroon', 11.33],['Pakistan', 7.57],['Papua New Guinea', null],['Benin', 11.44],['Uganda', 10.59],['Djibouti', 6.7],['Afghanistan', 7.71],['Haiti', 9],['Yemen', 7.36],['Eritrea', 4.57],['Burundi', 11.03],[{v: 'SS', f: 'South Sudan'}, 3.54],['Niger', 5.73],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, 10.42],[{v: 'MC', f: 'Monaco'}, null],[{v: 'SM', f: 'San Marino'}, 12.82],[{v: 'TV', f: 'Tuvalu'}, null]
 
-            <div class="main">
-                <div id="single">
-                    <svg id="gdi" width="1000" height="600"></svg>
-                </div>
-                <div id="vs" style="display: none;">
-                    <h3 id="vs-female-title">Female</h3>
-                    <svg id="vs-female-map" width="1000" height="400"></svg>
-                    <h3 id="vs-male-title">Male</h3>
-                    <svg id="vs-male-map" width="1000" height="400"></svg>
-                </div>
-            </div>
+		];
+		var map4M = [
+          ['Country',   'SDG 8.5 Male ($)'],
+		  ['Norway', 12.81],['Ireland', 12.42],['Switzerland', 13.55],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, 12.74],['Australia', 12.65],['Denmark', 12.39],['Finland', 12.64],['Singapore', 12.11],['United Kingdom', 13.24],['Belgium', 12.17],['New Zealand', 12.85],['Austria', 12.87],['Japan', 12.63],[{v: 'KR', f: 'Korea (Republic of)'}, 12.87],['United Arab Emirates', 12.42],['Saudi Arabia', 10.52],['Bahrain', 9.72],['Chile', 10.71],['Qatar', 9.36],['Argentina', 10.72],[{v: 'BN', f: 'Brunei Darussalam'}, 9.16],['Kazakhstan', 11.92],[{v: 'RU', f: 'Russian Federation'}, 12.07],['Uruguay', 8.62],['Bulgaria', 11.23],['Panama', 9.96],['Barbados', 10.33],['Oman', 9.37],['Georgia', 13.09],['Costa Rica', 8.61],['Malaysia', 10.47],['Kuwait', 6.83],['Serbia', 11.63],['Mauritius', 9.67],['Cuba', 11.79],['Sri Lanka', 10.64],['Bosnia and Herzegovina', 10.85],['Grenada', null],['Mexico', 8.94],['Ukraine', 11.34],['Peru', 10.25],['Thailand', 8.19],['Armenia', 11.3],['Colombia', 8.3],['Brazil', 7.74],['China', 8.39],['Ecuador', 8.85],['Dominican Republic', 8.31],['Algeria', 8.27],['Lebanon', 8.91],['Maldives', 7.01],['Tunisia', 7.99],['Suriname', 9.12],['Jamaica', 9.28],['Jordan', 10.72],['Libya', 7.21],['Uzbekistan', 12],['Indonesia', 8.57],['Philippines', 9.21],['South Africa', 10.29],['Egypt', 8.08],[{v: 'VN', f: 'Viet Nam'}, 8.63],['Gabon', 9.63],['Iraq', 8.63],['El Salvador', 7.3],['Tajikistan', 11.26],['Bhutan', 4.79],['India', 8.71],['Honduras', 6.51],['Bangladesh', 6.94],['Sao Tome and Principe', 7.14],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, 5.72],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, 7.15],['Ghana', 8.09],[{v: 'TL', f: 'Timor-Leste'}, 5.62],['Nepal', 5.76],['Kenya', 7.19],['Cambodia', 5.78],['Equatorial Guinea', 7.62],['Zambia', 8.17],['Myanmar', 4.86],['Zimbabwe', 8.92],[{v: 'SY', f: 'Syrian Arab Republic'}, 5.6],['Cameroon', 8.02],['Pakistan', 6.25],['Papua New Guinea', 5.33],['Benin', 5.5],['Uganda', 7.62],['Djibouti', null],['Afghanistan', 6],['Haiti', 6.59],['Yemen', 5.14],['Eritrea', null],['Burundi', 4.05],[{v: 'SS', f: 'South Sudan'}, 5.2],['Niger', 2.81],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, null],[{v: 'MC', f: 'Monaco'}, null],[{v: 'SM', f: 'San Marino'}, null],[{v: 'TV', f: 'Tuvalu'}, null]
 
-            <div class="description-container">
-                <div id="gdi-description" class="description">
-                    <p>Most countries give less chance for female</p>
-                    <p>8 from 91 countries give chance for female better than male</p>
-                    <img width="180" height="auto" src="female-vs-male-gdi.png" alt="Female vs Male GDI">
-                </div>
-                <div id="hdi-description" class="description" style="display: none;">
-                    <p>Most countries give less chance for female</p>
-                    <p>8 from 91 countries give chance for female better than male</p>
-                    <img width="180" height="auto" src="female-vs-male-gdi.png" alt="Female vs Male GDI">
-                </div>
-                <div id="sdg3-description" class="description" style="display: none;">
-                    <p>Almost all countries has better life expectancy for female</p>
-                    <p>97 from 100 countries has better life expectancy for female</p>
-                </div>
-                <div id="sdg43-description" class="description" style="display: none;">
-                    <p>Most countries has better expected year of schooling for female</p>
-                    <p>61 from 96 countries has better expected year of schooling for female</p>
-                </div>
-                <div id="sdg44-description" class="description" style="display: none;">
-                    <p>Most countries give less mean year of schooling for female</p>
-                    <p>Only 27 from 93 countries give better mean year of schooling for female</p>
-                </div>
-                <div id="sdg85-description" class="description" style="display: none;">
-                    <p>Most countries has less estimated gross national income per capita for female</p>
-                    <p>Only 3 from 95 countries has better estimated gross national income per capita for female than male</p>
-                </div>
-            </div>
-        </div>
-    </div>
+		];
+		var map4F = [
+          ['Country',   'SDG 8.5 Female ($)'],
+		  ['Norway', 12.97],['Ireland', 12.89],['Switzerland', 12.66],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, 11.9],['Australia', 12.79],['Denmark', 12.83],['Finland', 12.99],['Singapore', 11.17],['United Kingdom', 13.24],['Belgium', 11.93],['New Zealand', 12.71],['Austria', 12.23],['Japan', 13.06],[{v: 'KR', f: 'Korea (Republic of)'}, 11.42],['United Arab Emirates', 11.67],['Saudi Arabia', 9.75],['Bahrain', 9.08],['Chile', 10.47],['Qatar', 11.28],['Argentina', 11.12],[{v: 'BN', f: 'Brunei Darussalam'}, 9.13],['Kazakhstan', 10.85],[{v: 'RU', f: 'Russian Federation'}, 11.91],['Uruguay', 9.19],['Bulgaria', 11.46],['Panama', 11.17],['Barbados', 10.96],['Oman', 10.64],['Georgia', 13.16],['Costa Rica', 8.85],['Malaysia', 10.27],['Kuwait', 7.97],['Serbia', 10.79],['Mauritius', 9.42],['Cuba', 11.24],['Sri Lanka', 10.62],['Bosnia and Herzegovina', 8.85],['Grenada', null],['Mexico', 8.58],['Ukraine', 11.33],['Peru', 9.14],['Thailand', 7.7],['Armenia', 11.29],['Colombia', 8.62],['Brazil', 8.18],['China', 7.7],['Ecuador', 8.73],['Dominican Republic', 8.84],['Algeria', 7.69],['Lebanon', 8.48],['Maldives', 7.02],['Tunisia', 6.47],['Suriname', 9.38],['Jamaica', 10.15],['Jordan', 10.31],['Libya', 8.47],['Uzbekistan', 11.61],['Indonesia', 7.76],['Philippines', 9.56],['South Africa', 10.03],['Egypt', 6.78],[{v: 'VN', f: 'Viet Nam'}, 8.01],['Gabon', 7.76],['Iraq', 5.99],['El Salvador', 6.62],['Tajikistan', 10.21],['Bhutan', 3.25],['India', 5.4],['Honduras', 6.58],['Bangladesh', 5.66],['Sao Tome and Principe', 5.75],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, 4.87],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, 6.33],['Ghana', 6.58],[{v: 'TL', f: 'Timor-Leste'}, 3.77],['Nepal', 4.34],['Kenya', 5.95],['Cambodia', 4.23],['Equatorial Guinea', 4.19],['Zambia', 6.28],['Myanmar', 5.04],['Zimbabwe', 8.06],[{v: 'SY', f: 'Syrian Arab Republic'}, 4.62],['Cameroon', 4.72],['Pakistan', 3.83],['Papua New Guinea', 3.96],['Benin', 2.4],['Uganda', 4.9],['Djibouti', null],['Afghanistan', 1.94],['Haiti', 4.28],['Yemen', 2.88],['Eritrea', null],['Burundi', 2.6],[{v: 'SS', f: 'South Sudan'}, 3.93],['Niger', 1.39],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, null],[{v: 'MC', f: 'Monaco'}, null],[{v: 'SM', f: 'San Marino'}, null],[{v: 'TV', f: 'Tuvalu'}, null]
 
-    <script>
+		];
+		var map5M = [
+          ['Country',   'SDG 3 Male'],
+		  ['Norway', 74279.89],['Ireland', 81400.5],['Switzerland', 81136.6],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, 82992.88],['Australia', 56953.61],['Denmark', 68133.62],['Finland', 56485.02],['Singapore', 103421.38],['United Kingdom', 59134.68],['Belgium', 62427.38],['New Zealand', 50692.96],['Austria', 73527.75],['Japan', 55869.37],[{v: 'KR', f: 'Korea (Republic of)'}, 58309.27],['United Arab Emirates', 84722.52],['Saudi Arabia', 70180.91],['Bahrain', 55564.6],['Chile', 30321.88],['Qatar', 107833.02],['Argentina', 27825.75],[{v: 'BN', f: 'Brunei Darussalam'}, 72834.57],['Kazakhstan', 29295.81],[{v: 'RU', f: 'Russian Federation'}, 33639.83],['Uruguay', 25008.27],['Bulgaria', 28482.73],['Panama', 35049],['Barbados', 17370.23],['Oman', 35201.07],['Georgia', 19863.7],['Costa Rica', 23501.39],['Malaysia', 33877.3],['Kuwait', 75839.64],['Serbia', 20525.48],['Mauritius', 34898],['Cuba', 11567.29],['Sri Lanka', 18423.27],['Bosnia and Herzegovina', 19356.56],['Grenada', null],['Mexico', 25838.4],['Ukraine', 16839.98],['Peru', 14646.96],['Thailand', 19737.43],['Armenia', 18574],['Colombia', 17018.04],['Brazil', 18119.94],['China', 19307.7],['Ecuador', 14210.94],['Dominican Republic', 22739.55],['Algeria', 18890.7],['Lebanon', 23124.19],['Maldives', 22931.11],['Tunisia', 16340.58],['Suriname', 19092.98],['Jamaica', 11163.32],['Jordan', 16233.91],['Libya', 21998.62],['Uzbekistan', 9230.2],['Indonesia', 14966.48],['Philippines', 11694.19],['South Africa', 15094.54],['Egypt', 18039.47],[{v: 'VN', f: 'Viet Nam'}, 8223.72],['Gabon', 17790.66],['Iraq', 18975.23],['El Salvador', 10500.93],['Tajikistan', 6427.24],['Bhutan', 13069.45],['India', 10702.27],['Honduras', 6446.06],['Bangladesh', 7030.6],['Sao Tome and Principe', 5439.38],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, 9012.95],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, 8863.2],['Ghana', 6432.38],[{v: 'TL', f: 'Timor-Leste'}, 4395.42],['Nepal', 4108.39],['Kenya', 4829.01],['Cambodia', 4822.15],['Equatorial Guinea', 17135.13],['Zambia', 3270.42],['Myanmar', 6881.05],['Zimbabwe', 2984.89],[{v: 'SY', f: 'Syrian Arab Republic'}, 6225.49],['Cameroon', 4189.01],['Pakistan', 8412.34],['Papua New Guinea', 4813.58],['Benin', 3672.96],['Uganda', 2671.29],['Djibouti', 7076.5],['Afghanistan', 3565.86],['Haiti', 2015.73],['Yemen', 2980.03],['Eritrea', 3309.36],['Burundi', 640.1],[{v: 'SS', f: 'South Sudan'}, 2247.39],['Niger', 1859.11],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, null],[{v: 'MC', f: 'Monaco'}, null],[{v: 'SM', f: 'San Marino'}, null],[{v: 'TV', f: 'Tuvalu'}, null]
 
-        var dataSource = d3.map();
-        var topology = null
+		];
+		var map5F = [
+          ['Country',   'SDG 3 Female'],
+		  ['Norway', 58548.43],['Ireland', 55540.14],['Switzerland', 57840.35],[{v: 'HK', f: 'Hong Kong, China (SAR)'}, 45960.59],['Australia', 39286.57],['Denmark', 49296.29],['Finland', 40758.75],['Singapore', 71387.27],['United Kingdom', 33322.81],['Belgium', 41948.31],['New Zealand', 31232.96],['Austria', 39385.87],['Japan', 30583.92],[{v: 'KR', f: 'Korea (Republic of)'}, 27734.21],['United Arab Emirates', 28577.65],['Saudi Arabia', 16511.71],['Bahrain', 19059.24],['Chile', 16397.96],['Qatar', 45338.14],['Argentina', 14872.16],[{v: 'BN', f: 'Brunei Darussalam'}, 54385.93],['Kazakhstan', 16791.13],[{v: 'RU', f: 'Russian Federation'}, 19693.99],['Uruguay', 15444.87],['Bulgaria', 18453.14],['Panama', 24049.68],['Barbados', 12655.9],['Oman', 7959.23],['Georgia', 9475.46],['Costa Rica', 13476.27],['Malaysia', 20824.62],['Kuwait', 31697.75],['Serbia', 13989.97],['Mauritius', 15870.12],['Cuba', 5714.23],['Sri Lanka', 7433.1],['Bosnia and Herzegovina', 10566.53],['Grenada', null],['Mexico', 12765],['Ukraine', 10088.44],['Peru', 9888.94],['Thailand', 15924.39],['Armenia', 9737.42],['Colombia', 11593.68],['Brazil', 10534.7],['China', 12632.66],['Ecuador', 7874.34],['Dominican Republic', 12448.85],['Algeria', 3295.54],['Lebanon', 6078.49],['Maldives', 7907.65],['Tunisia', 4586.8],['Suriname', 9503.86],['Jamaica', 7500.82],['Jordan', 3323.64],['Libya', 9249.28],['Uzbekistan', 5063.99],['Indonesia', 7901.74],['Philippines', 7843.03],['South Africa', 9247.75],['Egypt', 4752.9],[{v: 'VN', f: 'Viet Nam'}, 6644.29],['Gabon', 9924.83],['Iraq', 2426.97],['El Salvador', 6471.33],['Tajikistan', 1439.88],['Bhutan', 8117.42],['India', 2330.54],['Honduras', 4172.73],['Bangladesh', 2873.33],['Sao Tome and Principe', 2462.34],[{v: 'LA', f: 'Lao People\'s Democratic Republic'}, 5800.89],[{v: 'SZ', f: 'Eswatini (Kingdom of)'}, 7011.29],['Ghana', 4073.32],[{v: 'TL', f: 'Timor-Leste'}, 4486.46],['Nepal', 2910.33],['Kenya', 3665.52],['Cambodia', 3696.94],['Equatorial Guinea', 9949.42],['Zambia', 3379.54],['Myanmar', 3174.16],['Zimbabwe', 2374.61],[{v: 'SY', f: 'Syrian Arab Republic'}, 988.65],['Cameroon', 2972.62],['Pakistan', 1392.54],['Papua New Guinea', 3766.67],['Benin', 2836.84],['Uganda', 1591.22],['Djibouti', 4150.92],['Afghanistan', 819.38],['Haiti', 1409.83],['Yemen', 186.04],['Eritrea', 2275.14],['Burundi', 865.89],[{v: 'SS', f: 'South Sudan'}, 1758.75],['Niger', 535.96],[{v: 'KP', f: 'Korea (Democratic People\'s Rep. of)'}, null],[{v: 'MC', f: 'Monaco'}, null],[{v: 'SM', f: 'San Marino'}, null],[{v: 'TV', f: 'Tuvalu'}, null]
 
-        // Load external data and boot
-        d3.queue()
-            .defer(d3.json, "https://raw.githubusercontent.com/adyanf/gdi_data_visualization/master/world.geojson")
-            .defer(d3.csv, "https://raw.githubusercontent.com/adyanf/gdi_data_visualization/master/gdi_index.csv", function(d) { 
-                dataSource.set(d.countryid, {
-                    "gdivalue": d.gdivalue,
-                    "hdifemale": d.hdifemale,
-                    "hdimale": d.hdimale,
-                    "hdirank": d.hdirank,
-                    "country": d.country,
-                    "countryid": d.countryid,
-                    "region": d.region,
-                    "humandevelopmentdegree": d.humandevelopmentdegree,
-                    "gdivalue": d.gdivalue,
-                    "gdigroup": d.gdigroup,
-                    "hdifemale": d.hdifemale,
-                    "hdimale": d.hdimale,
-                    "sdg3female": d.sdg3female,
-                    "sdg3male": d.sdg3male,
-                    "sdg43female": d.sdg43female,
-                    "sdg43male": d.sdg43male,
-                    "sdg44female": d.sdg44female,
-                    "sdg44male": d.sdg44male,
-                    "sdg85female": d.sdg85female,
-                    "sdg85male": d.sdg85male
-                });
-            })
-            .await(ready);
-
-        function ready(error, topo) {
-            topology = topo
-            clickGdi()
-        }
-
-        function renderSingleMap(type) {
-            cleanAllMap()
-            let singleMap = document.querySelector("#single")
-            singleMap.style.display = "block";
-
-            // The map path
-            var path = d3.geoPath();
-            
-            // The gender development index
-            var gdiMap = d3.select("#gdi"),
-            widthGdi = +gdiMap.attr("width"),
-            heightGdi = +gdiMap.attr("height");
-
-            var projectionGdi = d3.geoMercator()
-            .scale(100)
-            .center([0,20])
-            .translate([widthGdi / 2, heightGdi / 2]);
-
-            let zoom = d3.zoom()
-            .scaleExtent([1, 8])
-            .on('zoom', zoomed);
-
-            // hover function
-            let tooltip = d3.select("body")
-                .append("div")
-                .style("position", "absolute")
-                .style("z-index", "10")
-                .style("visibility", "hidden")
-                .style("background", "#fff")
-                .style("padding", "10px");
-
-            let mouseOver = function(d) {
-                console.log(d);
-                let data = dataSource.get(d.id)
-                let text = (data != null) ? d.total : "Data not available";
-                tooltip.text(d.properties.name + ": " + text)
-                tooltip.style("visibility", "visible")
-            }
-
-            let mouseMove = function() {
-                tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px")
-            }
-
-            let mouseOut = function() {
-                tooltip.style("visibility", "hidden")
-            }
-
-            var colorScaleGdi = colorScaleGdi = d3.scaleThreshold()
-                .domain([0.899, 0.925, 0.95, 0.975, 1, 1.025])
-                .range(d3.schemeBlues[7]);
-            
-            gdiMap
-                .append("g")
-                .selectAll("path")
-                .data(topology.features)
-                .enter()
-                .append("path")
-                // draw each country
-                .attr("d", d3.geoPath()
-                    .projection(projectionGdi)
-                )
-                // set the color of each country
-                .attr("fill", function (d) {
-                    if (dataSource.get(d.id) != null) {
-                        d.total = dataSource.get(d.id).gdivalue || 0;
-                    } else d.total = 0;
-                    if (d.total == 0) return "white";
-                    if (type == "gdivalue" && d.total > 1) return "pink";
-                    return colorScaleGdi(d.total);
-                })
-                .style("stroke", "black")
-                .attr("class", function(d){ return "Country" } )
-                .style("opacity", .8)
-                .on("mouseover", mouseOver)
-                .on("mousemove", mouseMove)
-                .on("mouseout", mouseOut)
-                
-            gdiMap.call(zoom);
-        }
-
-        function renderDualMap(type) {
-            cleanAllMap()
-            let vsMap = document.querySelector("#vs")
-            vsMap.style.display = "block";
-
-            // The map path
-            var path = d3.geoPath();
-            
-            // The female map
-            var femaleMap = d3.select("#vs-female-map"),
-            widthFemaleMap = +femaleMap.attr("width"),
-            heightFemaleMap = +femaleMap.attr("height");
-
-            var projectionFemaleMap = d3.geoMercator()
-                .scale(75)
-                .center([0,20])
-                .translate([widthFemaleMap / 2, heightFemaleMap / 2]);
-
-            // The male map
-            var maleMap = d3.select("#vs-male-map"),
-            widthMaleMap = +maleMap.attr("width"),
-            heightMaleMap = +maleMap.attr("height");
-
-            var projectionMaleMap = d3.geoMercator()
-                .scale(75)
-                .center([0,20])
-                .translate([widthMaleMap / 2, heightMaleMap / 2]);
-
-            // hover function
-            let tooltip = d3.select("body")
-                .append("div")
-                .style("position", "absolute")
-                .style("z-index", "10")
-                .style("visibility", "hidden")
-                .style("background", "#fff")
-                .style("padding", "10px");
-
-            let mouseOverFemale = function(d) {
-                let data = dataSource.get(d.id)
-                let text = (data != null) ? d.totalFemale : "Data not available";
-                tooltip.text(d.properties.name + ": " + text)
-                tooltip.style("visibility", "visible")
-            }
-
-            let mouseOverMale = function(d) {
-                let data = dataSource.get(d.id)
-                let text = (data != null) ? d.totalMale : "Data not available";
-                tooltip.text(d.properties.name + ": " + text)
-                tooltip.style("visibility", "visible")
-            }
-
-            let mouseMove = function() {
-                tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px")
-            }
-
-            let mouseOut = function() {
-                tooltip.style("visibility", "hidden")
-            }
-
-            var colorScale = null
-            if (type == "hdi") {
-                colorScale = d3.scaleThreshold()
-                .domain([0.2, 0.36, 0.52, 0.68, 0.84, 1])
-                .range(d3.schemeBuPu[7]);
-            } else if (type == "sdg3") {
-                colorScale = d3.scaleThreshold()
-                .domain([50, 58, 66, 74, 82, 90])
-                .range(d3.schemeYlGnBu[7]);
-            } else if (type == "sdg43") {
-                colorScale = d3.scaleThreshold()
-                .domain([0, 5, 10, 15, 20, 25])
-                .range(d3.schemeOranges[7]);
-            } else if (type == "sdg44") {
-                colorScale = d3.scaleThreshold()
-                .domain([0, 5, 10, 15, 20, 25])
-                .range(d3.schemeOranges[7]);
-            } else if (type == "sdg85") {
-                colorScale = d3.scaleThreshold()
-                .domain([0, 5000, 10000, 20000, 40000, 80000])
-                .range(d3.schemeGreens[7]);
-            }
-
-            femaleMap
-                .append("g")
-                .selectAll("path")
-                .data(topology.features)
-                .enter()
-                .append("path")
-                // draw each country
-                .attr("d", d3.geoPath()
-                    .projection(projectionFemaleMap)
-                )
-                // set the color of each country
-                .attr("fill", function (d) {
-                    if (dataSource.get(d.id) != null) {
-                        if (type == "hdi") {
-                            d.totalFemale = dataSource.get(d.id).hdifemale || 0;
-                        } else if (type == "sdg3") {
-                            d.totalFemale = dataSource.get(d.id).sdg3female || 0;
-                        } else if (type == "sdg43") {
-                            d.totalFemale = dataSource.get(d.id).sdg43female || 0;
-                        } else if (type == "sdg44") {
-                            d.totalFemale = dataSource.get(d.id).sdg44female || 0;
-                        }else if (type == "sdg85") {
-                            d.totalFemale = Number(dataSource.get(d.id).sdg85female).toFixed(2) || 0;
-                        }
-                    } else d.totalFemale = 0;
-                    if (d.totalFemale == 0) return "white";
-                    return colorScale(d.totalFemale);
-                })
-                .style("stroke", "black")
-                .attr("class", function(d){ return "Country-Female" } )
-                .style("opacity", .8)
-                .on("mouseover", mouseOverFemale)
-                .on("mousemove", mouseMove)
-                .on("mouseout", mouseOut)
-
-            maleMap
-                .append("g")
-                .selectAll("path")
-                .data(topology.features)
-                .enter()
-                .append("path")
-                // draw each country
-                .attr("d", d3.geoPath()
-                    .projection(projectionMaleMap)
-                )
-                // set the color of each country
-                .attr("fill", function (d) {
-                    if (dataSource.get(d.id) != null) {
-                        if (type == "hdi") {
-                            d.totalMale = dataSource.get(d.id).hdimale || 0;
-                        } else if (type == "sdg3") {
-                            d.totalMale = dataSource.get(d.id).sdg3male || 0;
-                        } else if (type == "sdg43") {
-                            d.totalMale = dataSource.get(d.id).sdg43male || 0;
-                        } else if (type == "sdg44") {
-                            d.totalMale = dataSource.get(d.id).sdg44male || 0;
-                        }else if (type == "sdg85") {
-                            d.totalMale = Number(dataSource.get(d.id).sdg85male).toFixed(2) || 0;
-                        }
-                    } else d.totalMale = 0;
-                    if (d.totalMale == 0) return "white";
-                    return colorScale(d.totalMale);
-                })
-                .style("stroke", "black")
-                .attr("class", function(d){ return "Country-Male" } )
-                .style("opacity", .8)
-                .on("mouseover", mouseOverMale)
-                .on("mousemove", mouseMove)
-                .on("mouseout", mouseOut)
-        }
-
-        function cleanAllMap() {
-            var gdiMap = d3.select("#gdi")
-            var maleMap = d3.select("#vs-male-map")
-            var femaleMap = d3.select("#vs-female-map")
-            gdiMap.selectAll("*").remove();
-            maleMap.selectAll("*").remove();
-            femaleMap.selectAll("*").remove()
-
-            var singleMap = document.querySelector("#single")
-            var vsMap = document.querySelector("#vs")
-            singleMap.style.display = "none"
-            vsMap.style.display = "none"
-        }
-
-        function zoomed() {
-            d3.select("g")
-                .selectAll('path') // To prevent stroke width from scaling
-                .attr('transform', d3.event.transform);
-        }
-
-        function clickGdi() {
-            console.log("clickGdi")
-            renderSingleMap("gdivalue")
-            showAppropriateDescription("#gdi-description")
-            handleButtonState("#btn_gdi")
-        }
-
-        function clickHdi() {
-            console.log("clickHdi")
-            changeMapTitle("Human Development Index")
-            renderDualMap("hdi")
-            showAppropriateDescription("#hdi-description")
-            handleButtonState("#btn_hdi")
-        }
-
-        function clickSdg3() {
-            console.log("clickSdg3")
-            changeMapTitle("Life Expectancy at Birth")
-            renderDualMap("sdg3")
-            showAppropriateDescription("#sdg3-description")
-            handleButtonState("#btn_sdg3")
-        }
-
-        function clickSdg43() {
-            console.log("clickSdg43")
-            changeMapTitle("Expected Years of Schooling")
-            renderDualMap("sdg43")
-            showAppropriateDescription("#sdg43-description")
-            handleButtonState("#btn_sdg43")
-        }
-
-        function clickSdg44() {
-            console.log("clickSdg44")
-            changeMapTitle("Mean Years of Schooling")
-            renderDualMap("sdg44")
-            showAppropriateDescription("#sdg44-description")
-            handleButtonState("#btn_sdg44")
-        }
-
-        function clickSdg85() {
-            console.log("clickSdg85")
-            changeMapTitle("Estimated Gross National Income per Capita")
-            renderDualMap("sdg85")
-            showAppropriateDescription("#sdg85-description")
-            handleButtonState("#btn_sdg85")
-        }
-
-        function showAppropriateDescription(idDescription) {
-            let allDescription = document.querySelectorAll(".description");
-            allDescription.forEach(hideDescription)
-            let selectedDescription = document.querySelector(idDescription);
-            selectedDescription.style.display = "block"
-        }
-
-        function handleButtonState(clickedId) {
-            let allButton = document.querySelectorAll(".button")
-            allButton.forEach(enableButton)
-            let clickedButton = document.querySelector(clickedId)
-            clickedButton.disabled = true
-        }
-
-        function changeMapTitle(type) {
-            let femaleTitle = document.querySelector("#vs-female-title")
-            let maleTitle = document.querySelector("#vs-male-title")
-            femaleTitle.text = type + " - Female"
-            maleTitle.text = type + " - Male"
-        }
-
-        function enableButton(button) {
-            button.disabled = false
-        }
-
-        function hideDescription(description) {
-            description.style.display = "none";
-        }
-        </script>
-    </body>
+		];
+		var options = {
+          colorAxis: {minValue:0,maxValue:1, colors: ['blue', 'deeppink']},
+          backgroundColor: {strokeWidth:5},
+          defaultColor: 'Black',
+		  enableRegionInteractivity : 'True',
+		  legend:'none'
+        };
+		var optionslist = {
+          colorAxis: {minValue:0,maxValue:1, colors: ['blue', 'deeppink']},
+          backgroundColor: {strokeWidth:5},
+          defaultColor: 'Black',
+		  enableRegionInteractivity : 'False',
+		  legend:'none'
+		}
+		var options1 = {
+          colorAxis: {minValue: 0, maxValue: 1,colors: ['#f5f5f5','Blueviolet']},
+          backgroundColor: {strokeWidth:5},
+          defaultColor: 'Black'
+		}
+		var options2 = {
+          colorAxis: {minValue: 50, maxValue: 90,colors: ['#f5f5f5', 'cyan']},
+          backgroundColor: {strokeWidth:5},
+          defaultColor: 'Black'
+		}
+		var options3 = {
+          colorAxis: {minValue: 0, maxValue: 25,colors: ['#f5f5f5', 'yellow']},
+          backgroundColor: {strokeWidth:5},
+          defaultColor: 'Black'
+		}
+		var options4 = {
+          colorAxis: {minValue: 0, maxValue: 15,colors: ['#f5f5f5', 'orange']},
+          backgroundColor: {strokeWidth:5},
+          defaultColor: 'Black'
+		}
+		var options5 = {
+          colorAxis: {minValue: 0, maxValue: 120000,colors: ['#f5f5f5', 'green']},
+          backgroundColor: {strokeWidth:5},
+          defaultColor: 'Black'
+		}
+		
+      function drawRegionsMap() {
+		
+        var data = google.visualization.arrayToDataTable(map1);
+        var geomap1 = new google.visualization.GeoChart(document.getElementById('divmap'));
+        geomap1.draw(data, options);
+		
+        var datap1 = google.visualization.arrayToDataTable(map1M);
+        var geomap1 = new google.visualization.GeoChart(document.getElementById('divmapp1'));
+        geomap1.draw(datap1, options1);
+		
+        var datap2 = google.visualization.arrayToDataTable(map1F);
+        var geomap1 = new google.visualization.GeoChart(document.getElementById('divmapp2'));
+        geomap1.draw(datap2, options1);
+		
+        var data1 = google.visualization.arrayToDataTable(map1);
+        var geomap1 = new google.visualization.GeoChart(document.getElementById('divmap1'));
+        geomap1.draw(data1, optionslist);
+		
+        var data2 = google.visualization.arrayToDataTable(map2);
+        var geomap2 = new google.visualization.GeoChart(document.getElementById('divmap2'));
+        geomap2.draw(data2, optionslist);
+		
+        var data3 = google.visualization.arrayToDataTable(map3);
+        var geomap3 = new google.visualization.GeoChart(document.getElementById('divmap3'));
+        geomap3.draw(data3, optionslist);
+		
+        var data4 = google.visualization.arrayToDataTable(map4);
+        var geomap4 = new google.visualization.GeoChart(document.getElementById('divmap4'));
+        geomap4.draw(data4, optionslist);
+		
+        var data5 = google.visualization.arrayToDataTable(map5);
+        var geomap5 = new google.visualization.GeoChart(document.getElementById('divmap5'));
+        geomap5.draw(data5, optionslist);
+		
+      };
+		function pane1(x){
+			if(!x.className.includes("active")){
+				document.getElementById("headermain").innerHTML = "Gender Development Index";
+				document.getElementById("headerpanel").innerHTML = "Human Development Index";
+				
+				var data = google.visualization.arrayToDataTable(map1);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmap'));
+				geomap1.draw(data, options);
+				
+				var datap1 = google.visualization.arrayToDataTable(map1M);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmapp1'));
+				geomap1.draw(datap1, options1);
+				
+				var datap2 = google.visualization.arrayToDataTable(map1F);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmapp2'));
+				geomap1.draw(datap2, options1);
+			}
+		}
+		
+		function pane2(x){
+			if(!x.className.includes("active")){
+				document.getElementById("headermain").innerHTML = "Comparison Life Expectacy at Birth";
+				document.getElementById("headerpanel").innerHTML = "Life Expectacy at Birth";
+				
+				var data = google.visualization.arrayToDataTable(map2);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmap'));
+				geomap1.draw(data, options);
+				
+				var datap1 = google.visualization.arrayToDataTable(map2M);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmapp1'));
+				geomap1.draw(datap1, options2);
+				
+				var datap2 = google.visualization.arrayToDataTable(map2F);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmapp2'));
+				geomap1.draw(datap2, options2);
+			}
+		}
+		function pane3(x){
+			if(!x.className.includes("active")){
+				document.getElementById("headermain").innerHTML = "Comparison Expected Year of Schooling";
+				document.getElementById("headerpanel").innerHTML = "Expected Year of Schooling";
+			
+				var data = google.visualization.arrayToDataTable(map3);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmap'));
+				geomap1.draw(data, options);
+				
+				var datap1 = google.visualization.arrayToDataTable(map3M);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmapp1'));
+				geomap1.draw(datap1, options3);
+				
+				var datap2 = google.visualization.arrayToDataTable(map3F);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmapp2'));
+				geomap1.draw(datap2, options3);
+			}
+		}
+		function pane4(x){
+			if(!x.className.includes("active")){
+				document.getElementById("headermain").innerHTML = "Comparison Mean Year of Schooling";
+				document.getElementById("headerpanel").innerHTML = "Mean Year of Schooling";
+				
+				var data = google.visualization.arrayToDataTable(map4);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmap'));
+				geomap1.draw(data, options);
+				
+				var datap1 = google.visualization.arrayToDataTable(map4M);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmapp1'));
+				geomap1.draw(datap1, options4);
+				
+				var datap2 = google.visualization.arrayToDataTable(map4F);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmapp2'));
+				geomap1.draw(datap2, options4);
+			}
+		}
+		function pane5(x){
+			if(!x.className.includes("active")){
+				document.getElementById("headermain").innerHTML = "Comparison Estimated Gross National Index";
+				document.getElementById("headerpanel").innerHTML = "Estimated Gross National Index";
+				
+				var data = google.visualization.arrayToDataTable(map5);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmap'));
+				geomap1.draw(data, options);
+				
+				var datap1 = google.visualization.arrayToDataTable(map5M);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmapp1'));
+				geomap1.draw(datap1, options5);
+				
+				var datap2 = google.visualization.arrayToDataTable(map5F);
+				var geomap1 = new google.visualization.GeoChart(document.getElementById('divmapp2'));
+				geomap1.draw(datap2, options5);
+			}
+		}
+    </script>
+	</head>
+	<body>
+		<div class="container border py-2">
+			<div class="row">
+				<div class="col-sm-12 py-3">
+					<h3>Female Development Compare to Male Development
+					</h3>
+				</div>
+				<div class="col-sm-2">
+					<p>Most country in the world give less chance for Female
+					</p>
+					<p> . . . Only 8 from 91 State have Develop for Female more than Male
+					</p>
+					<div class="d-flex justify-content-between h5">								
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>				
+						<div class="fa fa-female" style="color:deeppink"></div>							
+						<div class="fa fa-female" style="color:deeppink"></div>							
+						<div class="fa fa-female" style="color:deeppink"></div>	
+					</div>
+					<div class="d-flex justify-content-between h5">						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>		
+						<div class="fa fa-male" style="color:blue"></div>		
+						<div class="fa fa-male" style="color:blue"></div>		
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-female" style="color:deeppink"></div>						
+						<div class="fa fa-female" style="color:deeppink"></div>						
+						<div class="fa fa-female" style="color:deeppink"></div>		
+					</div>
+					<div class="d-flex justify-content-between h5">									
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>				
+						<div class="fa fa-female" style="color:deeppink"></div>						
+						<div class="fa fa-female" style="color:deeppink"></div>		
+					</div>
+					<div class="d-flex justify-content-between h5">						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+					</div>
+					<div class="d-flex justify-content-between h5">						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+					</div>
+					<div class="d-flex justify-content-between h5">						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+					</div>
+					<div class="d-flex justify-content-between h5">						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+					</div>
+					<div class="d-flex justify-content-between h5">						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+					</div>
+					<div class="d-flex justify-content-between h5">						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+					</div>
+					<div class="d-flex justify-content-between h5">						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+					</div>
+					<div class="d-flex justify-content-between h5">						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+						<div class="fa fa-male" style="color:blue"></div>
+					</div>
+					<div class="d-flex justify-content-between h5">						
+						<div class="fa fa-male" style="color:blue"></div>						
+						<div class="fa fa-male" style="color:blue"></div>	
+						<div class="fa fa-male" style="color:blue"></div>	
+						<div class="fa fa-male" style="visibility:hidden"></div>
+						<div class="fa fa-male" style="visibility:hidden"></div>
+						<div class="fa fa-male" style="visibility:hidden"></div>
+						<div class="fa fa-male" style="visibility:hidden"></div>
+						<div class="fa fa-male" style="visibility:hidden"></div>
+					</div>
+				</div>
+				<div class="col-sm-10">
+					<div class="row">
+						<div class="col-sm-8 text-center mb-0 h5 text-bold">
+							<p id="headermain" class="font-weight-bold">Gender Development Index</p>
+							<div id="divmap"></div>
+						</div>
+						<div class="col-sm-4 text-right">
+							<div class="text-center">
+							<p id="headerpanel">Human Development Index</p>
+							</div>
+							<div id="divmapp1" class="pb-2"></div>
+							<span id="maleheaderpanel" class="fa fa-male pb-3" style="color:blue"></span>
+							<div id="divmapp2" class="pb-2"></div>
+							<span id="femaleheaderpanel" class="fa fa-female" style="color:deeppink"></span>
+						</div>
+						<div id="maplist" class="col-sm-12 pt-3">
+							<div class="row px-2" >
+								<div class="mx-auto px-1" style="width:20%">
+									<p class="small h6 text-center pt-2 pb-2">Human Development Index</p>
+									<div class="map btn-light py-3 px-1 active" onclick="pane1(this)">
+										<div class="row">
+											<div id="divmap1" class="col-sm-12"></div>
+											<div class="col-sm-12 pt-2 px-4">
+												<div class="d-flex justify-content-between">
+												<span class="fa fa-male" style="color:blue"> 83</span>
+												<span class="fa fa-female text-right" style="color:deeppink"> 8</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="mx-auto px-1" style="width:20%">
+									<p class="small h6 text-center pt-2 pb-2">Life Expectacy at Birth</p>
+									<div class="map btn-light py-3 px-1" onclick="pane2(this)">
+										<div class="row">
+											<div id="divmap2" class="col-sm-12"></div>
+											<div class="col-sm-12 pt-2 px-4">
+												<div class="d-flex justify-content-between">
+												<span class="fa fa-male" style="color:blue"> 0</span>
+												<span class="fa fa-female text-right" style="color:deeppink"> 97</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="mx-auto px-1" style="width:20%">
+									<p class="small h6 text-center pt-2 pb-2">Expected Year of Schooling</p>
+									<div class="map btn-light py-3 px-1" onclick="pane3(this)">
+										<div class="row">
+											<div id="divmap3" class="col-sm-12"></div>
+											<div class="col-sm-12 pt-2 px-4">
+												<div class="d-flex justify-content-between">
+												<span class="fa fa-male" style="color:blue"> 35</span>
+												<span class="fa fa-female text-right" style="color:deeppink"> 61</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="mx-auto px-1" style="width:20%">
+									<p class="small h6 text-center pt-2 pb-2">Mean Year of Schooling</p>
+									<div class="map btn-light py-3 px-1" onclick="pane4(this)">
+										<div class="row">
+											<div id="divmap4" class="col-sm-12"></div>
+											<div class="col-sm-12 pt-2 px-4">
+												<div class="d-flex justify-content-between">
+												<span class="fa fa-male" style="color:blue"> 66</span>
+												<span class="fa fa-female text-right" style="color:deeppink"> 27</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="mx-auto px-1" style="width:20%">
+									<p class="small h6 text-center">Estimated Gross National Index</p>
+									<div class="map btn-light py-3 px-1" onclick="pane5(this)">
+										<div class="row">
+											<div id="divmap5" class="col-sm-12"></div>
+											<div class="col-sm-12 pt-2 px-4">
+												<div class="d-flex justify-content-between">
+												<span class="fa fa-male" style="color:blue"> 92</span>
+												<span class="fa fa-female text-right" style="color:deeppink"> 3</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 text-center pt-1">
+							<p class="small mb-0">Gender Development Index is Ratio of female to male HDI values. Human Development Index is the result from processing Life Expectacy at Birth, Expected Year of Schooling, Mean Year of Schooling and Estimated Gross National Index</p><p class="small pt-0">See Technical note 3 at http://hdr.undp.org/sites/default/files/hdr2020_technical_notes.pdf for details on how data is calculated.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+		var header = document.getElementById("maplist");
+		var btns = header.getElementsByClassName("map");
+		for (var i = 0; i < btns.length; i++) {
+			btns[i].addEventListener("click", function() {
+			var current = document.getElementsByClassName("active");
+			current[0].className = current[0].className.replace(" active", "");
+			this.className += " active";
+			});
+		}
+		</script>
+	</body>
 </html>
